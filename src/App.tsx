@@ -9,7 +9,8 @@ function App() {
     <div class="checkout">
 
     <div class="item">
-      <img src="https://images.bolia.com/cdn-cgi/image/background=%23f5f5f5,fit=pad,width=540,format=auto,height=405,quality=81/products/02-335-01_00004_angle.webp?v=1" width = "80px" height="80px"/>
+      <img src="https://images.bolia.com/cdn-cgi/image/background=%23f5f5f5,fit=pad,width=540,format=auto,height=405,quality=81/products/02-335-01_00004_angle.webp?v=1" 
+      width = "80px" height="80px"/>
       <p class= "pItemHeader">Stol</p>
       <p class="pItemPrice">Pris: </p>
     </div>
