@@ -11,7 +11,7 @@ body {
 .item {
   width: 600px;
   height: 125px;
-  border: 3px solid lightgray;
+  border: 2px solid lightgray;
 }
 .pItemHeader {
   font-weight: bold;
@@ -48,7 +48,7 @@ body {
 .total {
   width: 350px;
   height: 100%;
-  border: 1px solid lightgray;
+  border: 2px solid lightgray;
   float: right;
   position: relative;
   font-size: 18px;

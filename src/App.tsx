@@ -10,12 +10,12 @@ function App() {
     <div class="checkout">
       <div class="total">
         <p class="summary">Ordrehistorik</p>
-        <ul>
+        <ul class="products">
           <li>(1) Stol - svanemærket et eller andet: <b>199 kr.</b></li>
           <br></br>
           <li>(1) Badering - Rød: <b>49 kr.</b></li>
           <br></br>
-          <li>(1) Modelskib - Fra et eller andet fancy mærke: <b>499 kr.</b></li>
+          <li>(1) Modelskib - Fra et eller andet fancy mærke: <b><s>499 kr</s> 349 kr.</b></li>
 
         </ul>
         <div class="paySection">
