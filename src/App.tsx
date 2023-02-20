@@ -1,12 +1,45 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
+import data from './assets/products.json'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [subtotal, setSubtotal] = useState(0);
+	const [discount, setDiscount] = useState(0);
+	const [shipping, setShipping] = useState(0);
+	const [total, setTotal] = useState(subtotal + discount + shipping);
+
+	const [{ items }, setItems] = useState({ items: [] });
+	var newSubtotal = 0;
+
+  const addItem = () => {
+		var number = Math.round(Math.random() * 100);
+		var item = data[number % data.length];
+		items.push(item);
+		setItems({ items: [...items] });
+
+		newSubtotal = subtotal + item.price;
+		setSubtotal(newSubtotal);
+
+		const newTotal = newSubtotal + discount + shipping;
+		setTotal(newTotal);
+	};
+  
+
+
+  console.log(data)
+
+	const getTotal = (itemTotal: number) => {
+		console.log('item total: ' + itemTotal);
+		console.log('subtotal: ' + subtotal);
+		newSubtotal = subtotal + itemTotal;
+		setSubtotal(newSubtotal);
+		setTotal(newSubtotal + discount + shipping);
+		console.log('new sub total: ' + newSubtotal);
+	};
 
   return (
-
+    
     <div class="checkout">
       <div class="total">
         <p class="summary">Ordrehistorik</p>
