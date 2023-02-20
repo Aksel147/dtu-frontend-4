@@ -1,32 +1,38 @@
 body {
   font-family: Helvetica;
 }
+
 .checkout {
   width: 1200px;
   height: 700px;
   padding: 50px;
   margin: auto;
 }
+
 /* LEFT SIDE */
 .item {
   width: 600px;
   height: 125px;
 }
+
 .pItemHeader {
   font-weight: bold;
   font-size: 20px;
 }
+
 .pItemPrice {
   font-weight: bold;
   font-size: 22px;
   margin-top: 45px;
 }
+
 .itemText {
   position: absolute;
   display: inline-block;
   margin-left: 5px;
   margin-top: 10px;
 }
+
 .amount {
   margin-top: -40px;
   margin-left: 460px;
@@ -38,6 +44,7 @@ body {
   text-align: center;
   font-size: 16px;
 }
+
 .line {
   position: relative;
   right: 75px;
@@ -52,14 +59,17 @@ body {
   position: relative;
   font-size: 18px;
 }
+
 .summary {
   margin-top: 10px;
   font-size: 24px;
   text-align: center;
 }
+
 .paySection {
   padding: 30px;
 }
+
 .totalSum {
   position: absolute;
   text-align: center;
@@ -69,6 +79,7 @@ body {
   left: 0;
   right: 0;
 }
+
 .pay {
   color: white;
   background-color: black;
@@ -80,6 +91,12 @@ body {
   left: 0;
   right: 0;
 }
+
 .discount {
   color: red;
+}
+
+.header {
+  width: max-content;
+  margin-left: auto;
 }
