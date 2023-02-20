@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import data from './assets/products.json'
+import Carditem from './components/CardItem'
 import './App.css'
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
 
 		const newTotal = newSubtotal + discount + shipping;
 		setTotal(newTotal);
+    console.log(items)
 	};
   
 
@@ -42,7 +44,7 @@ function App() {
     
     <div class="checkout">
       <div class="total">
-        <p class="summary">Ordrehistorik</p>
+        <p class="summary"><b>Ordre</b></p>
         <ul class="products">
           <li>(1) Stol - svanemærket et eller andet: <b>199 kr.</b></li>
           <br></br>
@@ -54,12 +56,13 @@ function App() {
         <div class="paySection">
           <p class="totalSum"><b>Ordretotal: 800 kr</b></p>
           <p class="discount">Rabat: -150 kr</p>
-          <button class="pay" type="button">Betal</button>
+          <button class="pay" type="button" onClick={addItem}>Betal</button>
         </div>
       </div>
 
 <h2><b>Min indkøbskurv</b></h2>
 <hr class="line" width="600px"></hr>
+<Carditem item={data[0]}></Carditem>
       <div class="item">
         <img src="https://images.bolia.com/cdn-cgi/image/background=%23f5f5f5,fit=pad,width=540,format=auto,height=405,quality=81/products/02-335-01_00004_angle.webp?v=1"
           width="20%" height="100%" class="image2" />
