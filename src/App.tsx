@@ -24,6 +24,8 @@ function App() {
         </div>
       </div>
 
+<h2><b>Min indkøbskurv</b></h2>
+<hr class="line" width="600px"></hr>
       <div class="item">
         <img src="https://images.bolia.com/cdn-cgi/image/background=%23f5f5f5,fit=pad,width=540,format=auto,height=405,quality=81/products/02-335-01_00004_angle.webp?v=1"
           width="20%" height="100%" class="image2" />
