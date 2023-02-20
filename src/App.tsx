@@ -1,9 +1,22 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const defaultShoppingCart = [
+    { productId: "vitamin-c-500-250", quantity: 2, giftWrap: false },
+    { productId: "kids-songbook", quantity: 1, giftWrap: true },
+    { productId: "sugar-cane-1kg", quantity: 2, giftWrap: false },
+  ]
+  const [shoppingCart, setShoppingCart] = useState(defaultShoppingCart.map(item => ({ ...item, product: products.find(product => product.id === item.productId) })))
+
+  function setQuantity(productId: string, quantity: number) {
+    let newCart = [...shoppingCart];
+    let productIndex = newCart.findIndex(item => item.product?.id === productId);
+    if (productIndex !== -1) {
+      newCart[productIndex].quantity = quantity;
+    }
+    setShoppingCart(newCart);
+  }
 
   return (
 
