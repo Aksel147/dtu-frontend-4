@@ -5,7 +5,6 @@ body {
   width: 1200px;
   height: 700px;
   padding: 50px;
-  border: 1px solid black;
   margin: auto;
 }
 /* LEFT SIDE */
@@ -73,7 +72,7 @@ body {
 }
 .pay {
   color: white;
-  background-color: green;
+  background-color: black;
   position: absolute;
   text-align: center;
   height: 50px;
@@ -81,4 +80,7 @@ body {
   bottom: 0;
   left: 0;
   right: 0;
+}
+.discount {
+  color: red;
 }

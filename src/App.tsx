@@ -20,6 +20,7 @@ function App() {
         </ul>
         <div class="paySection">
           <p class="totalSum"><b>Ordretotal: 800 kr</b></p>
+          <p class="discount">Rabat: -150 kr</p>
           <button class="pay" type="button">Betal</button>
         </div>
       </div>
@@ -62,7 +63,7 @@ function App() {
           width="20%" height="100%" class="image2" />
         <div class="itemText">
           <p class="pItemHeader">Modelskib - Fra et eller andet fancy mærke</p>
-          <p class="pItemPrice">499 kr. </p>
+          <p class="pItemPrice"><s>499 kr.</s> 349 kr. </p>
         </div>
         <div class="amount">
           <label for="amount">Antal</label>
