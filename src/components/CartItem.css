@@ -1,0 +1,39 @@
+.item {
+    height: 125px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.left-container {
+    display: flex;
+}
+
+.right-container {
+    display: flex;
+    text-align: right;
+}
+
+.amount {
+    margin-top: 47px;
+    font-size: 18px;
+}
+
+.amount label {
+    padding-right: 10px;
+}
+
+.pItemHeader {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.pItemPrice {
+    font-weight: bold;
+    font-size: 22px;
+    margin-top: 45px;
+}
+
+.itemText {
+    margin: 10px;
+}
