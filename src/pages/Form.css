@@ -1,0 +1,54 @@
+body {
+    font-family: Helvetica;
+    height: 99vh;
+    width: 99vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 73px;
+    margin-bottom: 73px;
+}
+
+form {
+    color: black;
+    text-align: center;
+    border: 1px solid black;
+    width: 30vw;
+    padding: 20px;
+}
+
+form input {
+    display: block;
+    margin: 0 auto 10px auto;
+    border: 1px solid black;
+    padding: 10px;
+    font-weight: bold;
+    width: 90%;
+}
+
+.input-font {
+    font-weight: bold;
+    color: black;
+}
+
+.check {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+input[type='checkbox'] {
+    margin: 0;
+    margin-left: 10px;
+    width: 10%;
+    cursor: pointer;
+}
+
+input.submit {
+    width: 30%;
+    background-color: black;
+    color: white;
+    margin-top: 20px;
+}
+
