@@ -15,8 +15,8 @@
 }
 
 .amount {
-    margin-top: 47px;
-    font-size: 18px;
+    margin-top: 42px;
+    font-size: 14px;
 }
 
 .amount label {
@@ -25,12 +25,12 @@
 
 .pItemHeader {
     font-weight: bold;
-    font-size: 20px;
+    font-size: 18px;
 }
 
 .pItemPrice {
     font-weight: bold;
-    font-size: 22px;
+    font-size: 18px;
     margin-top: 45px;
 }
 

@@ -34,20 +34,41 @@ function App() {
   return (
     <div className="checkout">
       <div className='shopping-cart'>
-        <h2>
-          <b>
-            Min indkøbskurv
-          </b>
-        </h2>
+        
+        <h2><b>Min indkøbskurv</b></h2>
+        
         <hr />
         {shoppingCart.map(item => <CartItem key={item.product?.id} item={item} setQuantity={setItemQuantity} remove={removeItem} />)}
       </div>
 
       <div className="total">
         <p className="summary">Ordre</p>
-        <p className="discount">Rabat: -150 kr</p>
-        <p className="totalSum"><b>Ordretotal: {shoppingCart.reduce((a, v) => a = a + (v.quantity * v.product?.price), 0)} DKK</b></p>
+
+        <div className="summaryText">
+          
+          <div className="placeOnLine">
+            <p className="totalSum">Subtotal: </p>
+            <p className="totalSumRight">{shoppingCart.reduce((a, v) => a = a + (v.quantity * v.product?.price), 0)} DKK</p>
+          </div>
+
+          <div className="placeOnLine">
+            <p className="discount">Rabat: </p>
+            <p className="discountRight"> -150 kr</p>
+          </div>
+
+          <hr />
+
+          <div className="placeOnLine">
+            <p className="totalSum"><b>Pris i alt (inkl. moms): </b></p>
+            <p className="totalSumRight"><b>{shoppingCart.reduce((a, v) => a = a + (v.quantity * v.product?.price), 0)-150} DKK</b></p>
+          </div>
+      
+          
+        </div>
+        
+        
         <button className="pay" type="button">Betal</button>
+      
       </div>
     </div>
   )
