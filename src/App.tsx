@@ -44,7 +44,7 @@ function App() {
       <div className="total">
         <p className="summary">Ordre</p>
 
-        <div className="summaryText">
+        <div className="summaryContainer">
           
           <div className="placeOnLine">
             <p className="totalSum">Subtotal: </p>
