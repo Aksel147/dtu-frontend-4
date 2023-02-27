@@ -15,7 +15,7 @@ export default function CartItem(props: { item: Item, setQuantity: Function, rem
             <div className='right-container'>
                 <div className='itemText'>
                     <button onClick={() => { props.remove(props.item.product.id) }}>
-                        slet
+                        fjern
                     </button>
                     <div className='amount'>
                         <label>Antal</label>
