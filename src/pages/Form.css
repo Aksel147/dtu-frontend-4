@@ -1,16 +1,20 @@
-body {
+.formBody {
     font-family: Helvetica;
-    height: 99vh;
+    color: #333;
     width: 99vw;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 73px;
-    margin-bottom: 73px;
+    padding-block: 5%;
+    padding-inline: 5vw;
+}
+
+h1 {
+    font-weight: 700;
+    color: #333;
 }
 
 form {
-    color: black;
     text-align: center;
     border: 1px solid black;
     width: 30vw;
@@ -39,6 +43,7 @@ form input {
 }
 
 input[type='checkbox'] {
+    color: #333;
     margin: 0;
     margin-left: 10px;
     width: 10%;
