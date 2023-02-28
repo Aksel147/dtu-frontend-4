@@ -33,6 +33,28 @@ function App() {
 		}
 		setShoppingCart(newCart);
 	}
+	function isRebate() {
+		let total = shoppingCart.reduce(
+			(a, v) => (a = a + v.quantity * v.product?.price),
+			0
+		);
+
+		if (total > 300) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	function rebate() {
+		let total = shoppingCart.reduce(
+			(a, v) => (a = a + v.quantity * v.product?.price),
+			0
+		);
+
+		if (isRebate()) {
+			
+		}
+	}
 
 	function removeItem(productId: string) {
 		let newCart = [...shoppingCart];
@@ -42,7 +64,6 @@ function App() {
 		newCart.splice(productIndex, 1);
 		setShoppingCart(newCart);
 	}
-
 	return (
 		<div className="checkout">
 			<div className="shopping-cart">
