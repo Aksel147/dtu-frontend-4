@@ -52,8 +52,13 @@ function App() {
 		);
 
 		if (isRebate()) {
-			
+			return total * 0.1;
+		} else {
+			return 0;
 		}
+	}
+	function rebateProductQuantity() {
+
 	}
 
 	function removeItem(productId: string) {
@@ -70,6 +75,10 @@ function App() {
 				<h2>
 					<b>Min indkøbskurv</b>
 				</h2>
+				<div className="alert">
+  <span className="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+  <strong>10% OFF!</strong> Make an order over 300 DKK and get 10% off your order.
+</div>
 
 				<hr />
 				{shoppingCart.map((item) => (
@@ -99,7 +108,7 @@ function App() {
 
 					<div className="placeOnLine">
 						<p className="discount">Rabat: </p>
-						<p className="discountRight"> -150 kr</p>
+						<p className="discountRight"> -{rebate()} kr</p>
 					</div>
 
 					<hr />
