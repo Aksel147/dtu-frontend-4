@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router';
 import { describe, expect, it } from 'vitest';
-import App from './App';
-import Checkout from './pages/Checkout';
+import App from '../src/App';
+import Checkout from '../src/pages/Checkout';
 
 describe(App.name, () => {
 	it('should render', () => {
