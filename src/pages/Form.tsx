@@ -38,21 +38,27 @@ export default function Form() {
     <div className="formBody">
       <div className="form">
         <form>
+
           <h1>Leveringsadresse</h1>
-          <input
+          <select
             className="input-font"
-            type="text"
+            id="deliveryCountry"
             name="deliveryCountry"
             placeholder="Land"
             autoComplete="{false}"
             onChange={onChange}
-          />
+          >
+            <option value="Denmark" selected>
+              Danmark
+            </option>
+          </select>
           <input
             className="input-font"
             type="text"
             name="deliveryZipCode"
             placeholder="Postnr"
             autoComplete="{false}"
+            required
             onChange={onChange}
           />
           <input
@@ -61,6 +67,7 @@ export default function Form() {
             name="deliveryCity"
             placeholder="By"
             autoComplete="{false}"
+            required
             onChange={onChange}
           />
           <input
@@ -69,6 +76,7 @@ export default function Form() {
             name="deliveryAddressLine1"
             placeholder="Addresse Linje 1"
             autoComplete="{false}"
+            required
             onChange={onChange}
           />
           <input
@@ -85,6 +93,7 @@ export default function Form() {
             name="deliveryName"
             placeholder="Navn"
             autoComplete="{false}"
+            required
             onChange={onChange}
           />
           <input
@@ -93,14 +102,16 @@ export default function Form() {
             name="deliveryPhone"
             placeholder="Telefon"
             autoComplete="{false}"
+            required
             onChange={onChange}
           />
           <input
             className="input-font"
-            type="text"
+            type="email"
             name="deliveryEmail"
             placeholder="Email"
             autoComplete="{false}"
+            required
             onChange={onChange}
           />
           <input
@@ -130,18 +141,23 @@ export default function Form() {
               onChange={() => setCheck(!sameAsDeliveryAdress)}
             />
           </div>
-          
+
           {!sameAsDeliveryAdress ? (
             <>
-              <input
+              <select
                 className="input-font"
-                type="text"
-                name="billingCountry"
+                id="deliveryCountry"
+                name="deliveryCountry"
                 placeholder="Land"
                 autoComplete="{false}"
                 defaultValue={sameAsDeliveryAdress ? state.deliveryCountry : ""}
                 onChange={onChange}
-              />
+              >
+                <option value="Denmark" selected>
+                  Danmark
+                </option>
+              </select>
+
               <input
                 className="input-font"
                 type="text"
@@ -149,6 +165,7 @@ export default function Form() {
                 placeholder="Postnr"
                 autoComplete="{false}"
                 defaultValue={sameAsDeliveryAdress ? state.deliveryZipCode : ""}
+                required
                 onChange={onChange}
               />
               <input
@@ -158,6 +175,7 @@ export default function Form() {
                 placeholder="By"
                 autoComplete="{false}"
                 defaultValue={sameAsDeliveryAdress ? state.deliveryCity : ""}
+                required
                 onChange={onChange}
               />
               <input
@@ -166,7 +184,10 @@ export default function Form() {
                 name="billingAddressLine1"
                 placeholder="Addresse Linje 1"
                 autoComplete="{false}"
-                defaultValue={sameAsDeliveryAdress ? state.deliveryAddressLine1 : ""}
+                defaultValue={
+                  sameAsDeliveryAdress ? state.deliveryAddressLine1 : ""
+                }
+                required
                 onChange={onChange}
               />
               <input
@@ -175,7 +196,9 @@ export default function Form() {
                 name="billingAddressLine2"
                 placeholder="Addresse Linje 2"
                 autoComplete="{false}"
-                defaultValue={sameAsDeliveryAdress ? state.deliveryAddressLine2 : ""}
+                defaultValue={
+                  sameAsDeliveryAdress ? state.deliveryAddressLine2 : ""
+                }
                 onChange={onChange}
               />
               <input
@@ -185,6 +208,7 @@ export default function Form() {
                 placeholder="Navn"
                 autoComplete="{false}"
                 defaultValue={sameAsDeliveryAdress ? state.deliveryName : ""}
+                required
                 onChange={onChange}
               />
               <input
@@ -194,15 +218,17 @@ export default function Form() {
                 placeholder="Telefon"
                 autoComplete="{false}"
                 defaultValue={sameAsDeliveryAdress ? state.deliveryPhone : ""}
+                required
                 onChange={onChange}
               />
               <input
                 className="input-font"
-                type="text"
+                type="email"
                 name="billingEmail"
                 placeholder="Email"
                 autoComplete="{false}"
                 defaultValue={sameAsDeliveryAdress ? state.deliveryEmail : ""}
+                required
                 onChange={onChange}
               />
               <input
@@ -211,7 +237,9 @@ export default function Form() {
                 name="billingCompanyName"
                 placeholder="Firmanavn"
                 autoComplete="{false}"
-                defaultValue={sameAsDeliveryAdress ? state.deliveryCompanyName : ""}
+                defaultValue={
+                  sameAsDeliveryAdress ? state.deliveryCompanyName : ""
+                }
                 onChange={onChange}
               />
               <input
@@ -220,15 +248,16 @@ export default function Form() {
                 name="billingCompanyVAT"
                 placeholder="VAT-nummer"
                 autoComplete="{false}"
-                defaultValue={sameAsDeliveryAdress ? state.deliveryCompanyVAT : ""}
+                defaultValue={
+                  sameAsDeliveryAdress ? state.deliveryCompanyVAT : ""
+                }
                 onChange={onChange}
               />
             </>
           ) : (
             <div> </div>
           )}
-
-          <input type="button" className="submit" value="Submit" />
+          <input type="submit" className="submit" value="Submit" />
         </form>
       </div>
     </div>

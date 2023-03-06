@@ -9,6 +9,15 @@
     padding-inline: 5vw;
 }
 
+select {
+    display: block;
+    margin: 0 auto 10px auto;
+    border: 1px solid black;
+    padding: 10px 5px;
+    font-weight: bold;
+    width: 90%;
+}
+
 h1 {
     font-weight: 700;
     color: #333;
@@ -50,6 +59,8 @@ input[type='checkbox'] {
     cursor: pointer;
 }
 
+
+
 input.submit {
     width: 30%;
     background-color: black;
@@ -57,3 +68,11 @@ input.submit {
     margin-top: 20px;
 }
 
+input:invalid {
+    /*box-shadow: 0 0 5px 1px red;*/
+    border: 1px solid red;
+  }
+  
+  input:focus:invalid {
+    box-shadow: none;
+  }
