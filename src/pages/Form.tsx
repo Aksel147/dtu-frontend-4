@@ -1,8 +1,9 @@
 import "./Form.css";
 import { useState } from "react";
+import zipCodes from '../assets/postnumre.json';
 
 export default function Form() {
-  const [sameAsDeliveryAdress, setCheck] = useState(false);
+  const [sameAsDeliveryAdress, setCheck] = useState(true);
   const [state, setState] = useState({
     deliveryCountry: "",
     deliveryZipCode: "",
@@ -32,7 +33,10 @@ export default function Form() {
       ...prevState,
       [name]: value,
     }));
+
   };
+
+   
 
   return (
     <div className="formBody">
@@ -136,7 +140,7 @@ export default function Form() {
             <label htmlFor="checkbox">Samme som leveringsadresse</label>
             <input
               type="checkbox"
-              value="false"
+              checked={sameAsDeliveryAdress}
               name="checkbox"
               onChange={() => setCheck(!sameAsDeliveryAdress)}
             />
@@ -146,8 +150,8 @@ export default function Form() {
             <>
               <select
                 className="input-font"
-                id="deliveryCountry"
-                name="deliveryCountry"
+                id="billingCountry"
+                name="billingCountry"
                 placeholder="Land"
                 autoComplete="{false}"
                 defaultValue={sameAsDeliveryAdress ? state.deliveryCountry : ""}
