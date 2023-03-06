@@ -13,6 +13,10 @@ body {
   min-width: 45%
 }
 
+.shopping-cart h2 {
+  font-weight: bold;
+}
+
 .total {
   margin-top: 73px;
   min-width: 25%;
@@ -38,12 +42,11 @@ body {
   width: 100%;
 }
 
-.totalSum {
-  font-size: 16px;
-  padding-inline: 10px;
+.bold {
+  font-weight: bold;
 }
 
-.totalSumRight {
+.totalSum, .totalSumRight {
   font-size: 16px;
   padding-inline: 10px;
 }

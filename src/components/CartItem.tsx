@@ -1,7 +1,12 @@
 import './CartItem.css'
 import Item from '../models/Item'
 
-export default function CartItem(props: { item: Item, setQuantity: Function, remove: Function, upsell: Function }) {
+export default function CartItem(props: {
+    item: Item,
+    setQuantity: (id: string, val: number) => void,
+    remove: (id: string) => void,
+    upsell: (id: string) => void
+}) {
     let totalPrice = props.item.product.price * props.item.quantity;
     if (props.item.quantity >= props.item.product.rebateQuantity) {
         totalPrice = totalPrice * (1 - props.item.product.rebatePercent / 100);
@@ -21,7 +26,7 @@ export default function CartItem(props: { item: Item, setQuantity: Function, rem
                 <div className='right-container'>
                     <div className='itemText'>
                         <button onClick={() => { props.remove(props.item.product.id) }}>
-                            fjern
+                            Fjern
                         </button>
                         {props.item.quantity < props.item.product.rebateQuantity &&
                             <div className='quantity-nudge'>
@@ -30,8 +35,10 @@ export default function CartItem(props: { item: Item, setQuantity: Function, rem
                             </div>
                         }
                         <div className='amount'>
-                            <label>Antal</label>
-                            <input type="number" min="1" max="100" value={props.item.quantity} onChange={(e) => { props.setQuantity(props.item.product.id, e.target.value) }} />
+                            <label htmlFor="amount">
+                                Antal
+                            </label>
+                            <input id="amount" type="number" min="1" max="100" value={props.item.quantity} onChange={(e) => { props.setQuantity(props.item.product.id, parseInt(e.target.value)) }} />
                         </div>
                     </div>
                 </div>
@@ -41,7 +48,7 @@ export default function CartItem(props: { item: Item, setQuantity: Function, rem
                     <div>
                         Opgrader?
                         <br />
-                        <b>{props.item.product.upsellProduct?.name}</b>
+                        {props.item.product.upsellProduct.name}
                     </div>
                     <button onClick={() => { props.upsell(props.item.product.id) }}>
                         vælg

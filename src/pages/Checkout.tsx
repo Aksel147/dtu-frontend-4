@@ -9,9 +9,9 @@ import Product from '../models/Product';
 export default function Checkout() {
 	const navigate = useNavigate();
 
-    function handleClick(event: any) {
-      navigate('form');
-    }
+	function handleClick(event: any) {
+		navigate('form');
+	}
 
 	const defaultShoppingCart = [
 		{ productId: 'vitamin-c-500-250', quantity: 2, giftWrap: false },
@@ -27,7 +27,7 @@ export default function Checkout() {
 					...products.find((product) => product.id === item.productId),
 					upsellProduct: products.find((product) => product.id === products.find((product) => product.id === item.productId)?.upsellProductId)
 				} as Product,
-			} as Item)
+			})
 		)
 	);
 	let totalCartPrice = shoppingCart.reduce((a, v) => (a = reduceCartPrice(a, v)), 0);
@@ -41,12 +41,15 @@ export default function Checkout() {
 	}
 
 	function setItemQuantity(productId: string, quantity: number) {
+		let realQty = quantity
+		if (realQty < 1) { realQty = 1 }
+		if (realQty > 99) { realQty = 99 }
 		let newCart = [...shoppingCart];
 		const productIndex = newCart.findIndex(
 			(item) => item.product?.id === productId
 		);
 		if (productIndex !== -1) {
-			newCart[productIndex].quantity = quantity;
+			newCart[productIndex] = { ...newCart[productIndex], quantity: realQty };
 		}
 		setShoppingCart(newCart);
 	}
@@ -97,14 +100,15 @@ export default function Checkout() {
 		<div className="checkout">
 			<div className="shopping-cart">
 				<h2>
-					<b>Min indkøbskurv</b>
+					Min indkøbskurv
 				</h2>
 				<div className="alert">
 					<span className="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-					<strong>10% OFF!</strong> Make an order over 300 DKK and get 10% off your order.
+					<strong>10% Rabat!</strong> Bestil for over 300 DKK og få 10% rabat på din ordre.
 				</div>
 
 				<hr />
+				{shoppingCart.length === 0 && <>Kurven er tom</>}
 				{shoppingCart.map((item) => (
 					<CartItem
 						key={item.product?.id}
@@ -128,17 +132,15 @@ export default function Checkout() {
 					</div>
 					<div className="placeOnLine">
 						<p className="discount">Rabat: </p>
-						<p className="discountRight"> -{rebate()} kr</p>
+						<p className="discountRight"> -{rebate()} DKK</p>
 					</div>
 					<hr />
 					<div className="placeOnLine">
-						<p className="totalSum">
-							<b>Pris i alt (inkl. moms): </b>
+						<p className="totalSum bold">
+							Pris i alt (inkl. moms):
 						</p>
-						<p className="totalSumRight">
-							<b>
-								{(totalCartPrice-rebate()).toLocaleString('da-DK')} DKK
-							</b>
+						<p className="totalSumRight bold">
+							{(totalCartPrice - rebate()).toLocaleString('da-DK')} DKK
 						</p>
 					</div>
 				</div>
