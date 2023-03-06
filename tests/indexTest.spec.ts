@@ -1,8 +1,6 @@
 import { test, expect } from '@playwright/test';
 
 
-
-
 test.describe('Test on localhost', () => {
 
   test.beforeEach(async ({ page }) => {
@@ -27,8 +25,6 @@ test.describe('Test on localhost', () => {
     await expect(item0).toContainText('De små synger')
     await expect(finalPrice).toContainText('50 DKK')
   })
-
-
 
   test('remove all items', async ({ page }) => {
 
