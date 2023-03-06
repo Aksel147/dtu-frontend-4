@@ -70,3 +70,25 @@ body {
   right: 0;
   color: red;
 }
+
+/*MESSAGE TO USER*/
+.alert {
+  padding: 20px;
+  background-color: #1c5f0f;
+  color: white;
+}
+
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}
