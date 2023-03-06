@@ -1,8 +1,17 @@
 import "./Form.css";
 import { useState } from "react";
+import zipCodes from '../assets/postnumre.json';
 
 export default function Form() {
   const [sameAsDeliveryAdress, setCheck] = useState(true);
+
+
+  const [zipCode,setZipCode] = useState('');
+  const [city,setCity] = useState('');
+
+  const [zipCodeValid,setZipCodeValid] = useState(false);
+
+  /*
   const [state, setState] = useState({
     deliveryCountry: "",
     deliveryZipCode: "",
@@ -24,7 +33,7 @@ export default function Form() {
     billingEmail: "",
     billingCompanyName: "",
     billingCompanyVAT: "",
-  });
+  }); 
 
   const onChange = (e: { target: { name: any; value: any } }) => {
     const { name, value } = e.target;
@@ -34,10 +43,59 @@ export default function Form() {
     }));
   };
 
+  */
+  var form = document.querySelector('form')
+
+  const checkZipCode = (e: { target: { name: string; value: string } }) => {
+    const { name, value } = e.target;
+    
+    const zipCode = zipCodes.find((zipCode) => zipCode.nr === value);
+    if(zipCode !== undefined){
+      setZipCode(zipCode.nr);
+      setCity(zipCode.navn);
+      setZipCodeValid(true);
+      console.log(zipCodeValid);
+    } else {
+      setZipCode('');
+      setCity('');
+      setZipCodeValid(false);
+      console.log(zipCodeValid);
+    }
+  };
+
+  function handleSubmit(event: any) {
+    const target = event.target;
+    const name = target.name;
+    let error = '';
+    console.log("name");
+
+    if (!target.value) {
+      error = 'By skal udfyldes via postnummer'
+    }
+    
+    if(city===''){
+      error = 'Postnummer er ikke gyldigt'
+      event.preventDefault();
+    }
+
+    // this.state.inputs[idx] = {
+    //   ...this.state.inputs[idx],
+    //    value: target.value,
+    //   error
+    // }
+
+    // this.setState({
+    //   inputs: [...this.state.inputs]
+    // });
+  }
+
+  
+
   return (
     <div className="formBody">
       <div className="form">
-        <form>
+        <form onSubmit={handleSubmit}>
+        
 
           <h1>Leveringsadresse</h1>
           <select
@@ -46,89 +104,97 @@ export default function Form() {
             name="deliveryCountry"
             placeholder="Land"
             autoComplete="{false}"
-            onChange={onChange}
           >
             <option value="Denmark" selected>
               Danmark
             </option>
           </select>
-          <input
+          
+          {/* <select
             className="input-font"
-            type="text"
+            id="deliveryZipCode"
             name="deliveryZipCode"
             placeholder="Postnr"
             autoComplete="{false}"
-            required
-            onChange={onChange}
-          />
+          >
+            {zipCodes.map((zipCode) => (
+              <option value={zipCode.nr} key={zipCode.nr}>
+                {zipCode.nr}
+              </option>
+            ))}
+          </select> */}
+
           <input
-            className="input-font"
+            className={zipCodeValid ? 'input-font' : 'error-control'}
+            type="text"
+            name="deliveryZipCode"
+            placeholder="Postnr"
+            maxLength={4}
+            onChange={checkZipCode}
+            required
+          />
+
+          <input
+            className="input-font read-only"
             type="text"
             name="deliveryCity"
             placeholder="By"
-            autoComplete="{false}"
+            value={city}
             required
-            onChange={onChange}
+            readOnly
+            onSubmit={handleSubmit}
+          
           />
           <input
             className="input-font"
             type="text"
             name="deliveryAddressLine1"
             placeholder="Addresse Linje 1"
-            autoComplete="{false}"
             required
-            onChange={onChange}
           />
           <input
             className="input-font"
             type="text"
             name="deliveryAddressLine2"
             placeholder="Addresse Linje 2"
-            autoComplete="{false}"
-            onChange={onChange}
+
           />
           <input
             className="input-font"
             type="text"
-            name="deliveryName"
+            name="Name"
             placeholder="Navn"
-            autoComplete="{false}"
             required
-            onChange={onChange}
           />
           <input
             className="input-font"
             type="text"
             name="deliveryPhone"
             placeholder="Telefon"
-            autoComplete="{false}"
+            maxLength={8}
             required
-            onChange={onChange}
           />
           <input
             className="input-font"
             type="email"
             name="deliveryEmail"
             placeholder="Email"
-            autoComplete="{false}"
+            pattern="^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$"
             required
-            onChange={onChange}
           />
           <input
             className="input-font"
             type="text"
             name="deliveryCompanyName"
             placeholder="Firmanavn"
-            autoComplete="{false}"
-            onChange={onChange}
           />
           <input
             className="input-font"
             type="text"
             name="deliveryCompanyVAT"
             placeholder="VAT-nummer"
-            autoComplete="{false}"
-            onChange={onChange}
+            maxLength={8}
+            pattern="\d"
           />
           <br></br>
           <h1>Betalingsadresse</h1>
@@ -149,9 +215,6 @@ export default function Form() {
                 id="deliveryCountry"
                 name="deliveryCountry"
                 placeholder="Land"
-                autoComplete="{false}"
-                defaultValue={sameAsDeliveryAdress ? state.deliveryCountry : ""}
-                onChange={onChange}
               >
                 <option value="Denmark" selected>
                   Danmark
@@ -163,95 +226,70 @@ export default function Form() {
                 type="text"
                 name="billingZipCode"
                 placeholder="Postnr"
-                autoComplete="{false}"
-                defaultValue={sameAsDeliveryAdress ? state.deliveryZipCode : ""}
+                pattern="^(?:[1-24-9]\d{3}|3[0-8]\d{2})$"
+                maxLength={4}
+                onChange={checkZipCode}
                 required
-                onChange={onChange}
               />
               <input
-                className="input-font"
+                className="input-font read-only"
                 type="text"
                 name="billingCity"
                 placeholder="By"
-                autoComplete="{false}"
-                defaultValue={sameAsDeliveryAdress ? state.deliveryCity : ""}
+                value={city}
+                readOnly
                 required
-                onChange={onChange}
               />
               <input
                 className="input-font"
                 type="text"
                 name="billingAddressLine1"
                 placeholder="Addresse Linje 1"
-                autoComplete="{false}"
-                defaultValue={
-                  sameAsDeliveryAdress ? state.deliveryAddressLine1 : ""
-                }
                 required
-                onChange={onChange}
               />
               <input
                 className="input-font"
                 type="text"
                 name="billingAddressLine2"
                 placeholder="Addresse Linje 2"
-                autoComplete="{false}"
-                defaultValue={
-                  sameAsDeliveryAdress ? state.deliveryAddressLine2 : ""
-                }
-                onChange={onChange}
               />
               <input
                 className="input-font"
                 type="text"
-                name="billingName"
+                name="Name"
                 placeholder="Navn"
-                autoComplete="{false}"
-                defaultValue={sameAsDeliveryAdress ? state.deliveryName : ""}
                 required
-                onChange={onChange}
               />
               <input
                 className="input-font"
                 type="text"
                 name="billingPhone"
                 placeholder="Telefon"
-                autoComplete="{false}"
-                defaultValue={sameAsDeliveryAdress ? state.deliveryPhone : ""}
+                maxLength={8}
+                pattern="\d"
                 required
-                onChange={onChange}
               />
               <input
                 className="input-font"
                 type="email"
                 name="billingEmail"
                 placeholder="Email"
-                autoComplete="{false}"
-                defaultValue={sameAsDeliveryAdress ? state.deliveryEmail : ""}
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
                 required
-                onChange={onChange}
               />
               <input
                 className="input-font"
                 type="text"
                 name="billingCompanyName"
                 placeholder="Firmanavn"
-                autoComplete="{false}"
-                defaultValue={
-                  sameAsDeliveryAdress ? state.deliveryCompanyName : ""
-                }
-                onChange={onChange}
               />
               <input
                 className="input-font"
                 type="text"
                 name="billingCompanyVAT"
                 placeholder="VAT-nummer"
-                autoComplete="{false}"
-                defaultValue={
-                  sameAsDeliveryAdress ? state.deliveryCompanyVAT : ""
-                }
-                onChange={onChange}
+                maxLength={8}
+                pattern="\d"
               />
             </>
           ) : (

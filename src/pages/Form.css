@@ -39,6 +39,12 @@ form input {
     width: 90%;
 }
 
+.read-only {
+    outline: none;
+    cursor: default;
+    background-color: #eeeeee;
+}
+
 .input-font {
     font-weight: bold;
     color: black;
@@ -55,8 +61,12 @@ input[type='checkbox'] {
     color: #333;
     margin: 0;
     margin-left: 10px;
-    width: 10%;
+    width: 20%;
     cursor: pointer;
+}
+
+.error-control {
+    border: 1px solid red
 }
 
 
@@ -69,10 +79,15 @@ input.submit {
 }
 
 input:invalid {
-    /*box-shadow: 0 0 5px 1px red;*/
-    border: 1px solid red;
-  }
+    /* box-shadow: 0 0 5px 1px red; */
+    border: 1px solid rgb(0, 0, 0);
+}
   
-  input:focus:invalid {
+input:focus:invalid {
     box-shadow: none;
-  }
+}
+
+input.required:invalid {
+    color: red;
+    border: 1px solid red;
+}
