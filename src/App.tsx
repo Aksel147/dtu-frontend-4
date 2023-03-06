@@ -92,6 +92,7 @@ function App() {
 </div>
 
 				<hr />
+
 				{shoppingCart.map((item) => (
 					<CartItem
 						key={item.product?.id}
@@ -100,6 +101,7 @@ function App() {
 						remove={removeItem}
 					/>
 				))}
+				
 			</div>
 
 			<div className="total">
@@ -119,7 +121,7 @@ function App() {
 
 					<div className="placeOnLine">
 						<p className="discount">Rabat: </p>
-						<p className="discountRight"> -{rebate()} kr</p>
+						<p className="discountRight"> -{rebate()} DKK</p>
 					</div>
 
 					<hr />
@@ -130,8 +132,7 @@ function App() {
 						</p>
 						<p className="totalSumRight">
 							<b>
-								{returnTotal()}
-								DKK
+								{returnTotal()} DKK
 							</b>
 						</p>
 					</div>
