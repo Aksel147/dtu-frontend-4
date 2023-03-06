@@ -60,7 +60,7 @@ test.describe('Test on localhost', () => {
 
     // Act
     await antal.fill('5')
-    await finalPrice.click() // Does this click othervise the "antal" container wont opdate
+    await page.keyboard.press('Tab'); // Does this so the container will opdate by leaving it
 
     // Accept
     await expect(finalPrice).toContainText('800 DKK')
