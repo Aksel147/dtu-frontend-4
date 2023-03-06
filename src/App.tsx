@@ -57,6 +57,17 @@ function App() {
 			return 0;
 		}
 	}
+	function returnTotal() {
+		let total = shoppingCart.reduce(
+			(a, v) => (a = a + v.quantity * v.product?.price),
+			0
+		);
+		if (isRebate()) {
+			return total * 0.9;
+		} else {
+			return shoppingCart.reduce((a, v) => (a = a + v.quantity * v.product?.price), 0);
+		}
+	}
 	function rebateProductQuantity() {
 
 	}
@@ -119,10 +130,7 @@ function App() {
 						</p>
 						<p className="totalSumRight">
 							<b>
-								{shoppingCart.reduce(
-									(a, v) => (a = a + v.quantity * v.product?.price),
-									0
-								) - 150}{' '}
+								{returnTotal()}
 								DKK
 							</b>
 						</p>
