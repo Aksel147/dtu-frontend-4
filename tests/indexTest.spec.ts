@@ -1,11 +1,13 @@
 import { test, expect } from '@playwright/test';
 
-test.beforeEach(async ({ page }) => {
-  await page.goto('http://localhost:5173/');
-});
+
 
 
 test.describe('Test on localhost', () => {
+
+  test.beforeEach(async ({ page }) => {
+    await page.goto('http://localhost:5173/');
+  });
 
   test('remove first item', async ({ page }) => {
 
