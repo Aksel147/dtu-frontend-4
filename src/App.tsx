@@ -14,14 +14,24 @@ function App() {
 	const [shoppingCart, setShoppingCart] = useState<Item[]>(
 		defaultShoppingCart.map(
 			(item) =>
-				({
-					...item,
-					product: products.find(
-						(product) => product.id === item.productId
-					) as Product,
-				} as Item)
+			({
+				...item,
+				product: {
+					...products.find((product) => product.id === item.productId), 
+					upsellProduct: products.find((product) => product.id === products.find((product) => product.id === item.productId)?.upsellProductId)
+				} as Product,
+			} as Item)
 		)
 	);
+	let totalCartPrice = shoppingCart.reduce((a, v) => (a = reduceCartPrice(a, v)), 0);
+
+	function reduceCartPrice(a: number, v: Item): number {
+		let totalPrice = v.product.price * v.quantity;
+		if (v.quantity >= v.product.rebateQuantity) {
+			totalPrice = totalPrice * (1 - v.product.rebatePercent / 100);
+		}
+		return a + totalPrice;
+	}
 
 	function setItemQuantity(productId: string, quantity: number) {
 		let newCart = [...shoppingCart];
@@ -43,6 +53,15 @@ function App() {
 		setShoppingCart(newCart);
 	}
 
+	function upsell(productId: string) {
+		let newCart = [...shoppingCart];
+		const productIndex = newCart.findIndex(
+			(item) => item.product?.id === productId
+		);
+		newCart[productIndex] = { ...newCart[productIndex], product: newCart[productIndex].product.upsellProduct }
+		setShoppingCart(newCart);
+	}
+
 	return (
 		<div className="checkout">
 			<div className="shopping-cart">
@@ -57,6 +76,7 @@ function App() {
 						item={item}
 						setQuantity={setItemQuantity}
 						remove={removeItem}
+						upsell={upsell}
 					/>
 				))}
 			</div>
@@ -66,34 +86,23 @@ function App() {
 
 				<div className="summaryContainer">
 					<div className="placeOnLine">
-						<p className="totalSum">Subtotal: </p>
+						<p className="totalSum">Subtotal:</p>
 						<p className="totalSumRight">
-							{shoppingCart.reduce(
-								(a, v) => (a = a + v.quantity * v.product?.price),
-								0
-							)}{' '}
-							DKK
+							{totalCartPrice.toLocaleString('da-DK')} DKK
 						</p>
 					</div>
-
 					<div className="placeOnLine">
 						<p className="discount">Rabat: </p>
 						<p className="discountRight"> -150 kr</p>
 					</div>
-
 					<hr />
-
 					<div className="placeOnLine">
 						<p className="totalSum">
 							<b>Pris i alt (inkl. moms): </b>
 						</p>
 						<p className="totalSumRight">
 							<b>
-								{shoppingCart.reduce(
-									(a, v) => (a = a + v.quantity * v.product?.price),
-									0
-								) - 150}{' '}
-								DKK
+								{(totalCartPrice - 150).toLocaleString('da-DK')} DKK
 							</b>
 						</p>
 					</div>

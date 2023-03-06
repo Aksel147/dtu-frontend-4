@@ -5,5 +5,6 @@ export default interface Product {
     currency: string,
     rebateQuantity: number,
     rebatePercent: number,
-    upsellProductId: string
+    upsellProductId: string,
+    upsellProduct: Product
 }

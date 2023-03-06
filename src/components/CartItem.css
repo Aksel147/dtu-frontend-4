@@ -1,6 +1,9 @@
+.item-container {
+    margin-bottom: 20px;
+}
+
 .item {
     height: 125px;
-    margin-bottom: 20px;
     display: flex;
     justify-content: space-between;
 }
@@ -10,12 +13,10 @@
 }
 
 .right-container {
-    display: flex;
     text-align: right;
 }
 
 .amount {
-    margin-top: 42px;
     font-size: 14px;
 }
 
@@ -23,17 +24,36 @@
     padding-right: 10px;
 }
 
-.pItemHeader {
+.pItemHeader, .pItemPrice {
     font-weight: bold;
     font-size: 18px;
-}
-
-.pItemPrice {
-    font-weight: bold;
-    font-size: 18px;
-    margin-top: 45px;
+    margin: 0;
 }
 
 .itemText {
-    margin: 10px;
+    height: 100%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.right-container .itemText {
+    align-items: flex-end;
+}
+
+.itemText button {
+    width: fit-content;
+    min-width: 0;
+
+}
+
+.quantity-nudge {
+    color: red;
+}
+
+.upsell {
+    display: flex;
+    justify-content: space-between;
+    border: 2px solid yellow;
 }
