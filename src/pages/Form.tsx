@@ -2,7 +2,7 @@ import "./Form.css";
 import { useState } from "react";
 
 export default function Form() {
-  const [sameAsDeliveryAdress, setCheck] = useState(false);
+  const [sameAsDeliveryAdress, setCheck] = useState(true);
   const [state, setState] = useState({
     deliveryCountry: "",
     deliveryZipCode: "",
@@ -136,7 +136,7 @@ export default function Form() {
             <label htmlFor="checkbox">Samme som leveringsadresse</label>
             <input
               type="checkbox"
-              value="false"
+              checked={sameAsDeliveryAdress}
               name="checkbox"
               onChange={() => setCheck(!sameAsDeliveryAdress)}
             />
