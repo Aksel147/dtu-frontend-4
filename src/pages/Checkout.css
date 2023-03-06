@@ -29,28 +29,23 @@ body {
 }
 
 .summaryContainer {
-  right: 0;
-  margin: 0;
   width: 100%;
 }
 
-
-
 .placeOnLine {
-  display: inline-flex;
+  display: flex;
+  justify-content: space-between;
   width: 100%;
 }
 
 .totalSum {
   font-size: 16px;
   padding-inline: 10px;
-  margin: 0 auto 0 0;
 }
 
 .totalSumRight {
   font-size: 16px;
   padding-inline: 10px;
-  right: 0;
 }
 
 .pay {
@@ -67,7 +62,6 @@ body {
   font-size: 16px;
   padding-inline: 10px;
   color: red;
-  margin: 0 auto 0 0;
 }
 
 .discountRight {
