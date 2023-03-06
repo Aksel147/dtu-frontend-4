@@ -46,7 +46,7 @@ test.describe('Test on localhost', () => {
 
   })
 
-  test.only('buy more of same item', async ({ page }) => {
+  test('buy more of same item', async ({ page }) => {
 
     // Arrange
     const antal = page.locator('div').getByRole('spinbutton').nth(0)
@@ -58,6 +58,7 @@ test.describe('Test on localhost', () => {
 
     // Act
     await antal.fill('5')
+    await finalPrice.click() // Does this click othervise the "antal" container wont opdate
 
     // Accept
     await expect(finalPrice).toContainText('800 DKK')
