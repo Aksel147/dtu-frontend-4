@@ -10,8 +10,13 @@ export default function Form() {
   const [billingZipCode,setBillingZipCode] = useState('');
   const [deliveryCity,setDeliveryCity] = useState('');
   const [billingCity,setBillingCity] = useState('');
+  const [deliveryPhone,setDeliveryPhone] = useState('');
+  const [billingPhone,setBillingPhone] = useState('');
+  const [deliveryVAT,setDeliveryVAT] = useState('');
+  const [billingVAT,setBillingVAT] = useState('');
 
-  const [zipCodeValid,setZipCodeValid] = useState(false);
+  const [isZipCodeValid,setIsZipCodeValid] = useState(false);
+  const [isDigitsValid,setIsDigitsValid] = useState(false);
 
   /*
   const [state, setState] = useState({
@@ -48,39 +53,65 @@ export default function Form() {
   */
   var form = document.querySelector('form')
 
-  const checkDeliveryZipCode = (e: { target: { name: string; value: string } }) => {
+  const validateDeliveryZipCode = (e: { target: { name: string; value: string } }) => {
     const { name, value } = e.target;
     
     const zipCode = zipCodes.find((zipCode) => zipCode.nr === value);
     if(zipCode !== undefined){
       setDeliveryZipCode(zipCode.nr);
       setDeliveryCity(zipCode.navn);
-      setZipCodeValid(true);
-      console.log(zipCodeValid);
+      setIsZipCodeValid(true);
+      console.log(isZipCodeValid);
     } else {
       setDeliveryZipCode('');
       setDeliveryCity('');
-      setZipCodeValid(false);
-      console.log(zipCodeValid);
+      setIsZipCodeValid(false);
+      console.log(isZipCodeValid);
     }
   };
 
-  const checkBillingZipCode = (e: { target: { name: string; value: string } }) => {
+  const validateBillingZipCode = (e: { target: { name: string; value: string } }) => {
     const { name, value } = e.target;
     
     const zipCode = zipCodes.find((zipCode) => zipCode.nr === value);
     if(zipCode !== undefined){
       setBillingZipCode(zipCode.nr);
       setBillingCity(zipCode.navn);
-      setZipCodeValid(true);
-      console.log(zipCodeValid);
+      setIsZipCodeValid(true);
+      console.log(isZipCodeValid);
     } else {
       setBillingZipCode('');
       setBillingCity('');
-      setZipCodeValid(false);
-      console.log(zipCodeValid);
+      setIsZipCodeValid(false);
+      console.log(isZipCodeValid);
     }
   };
+
+  const validateDigits = (e: { target: { name: string; value: string } }) => {
+    const { name, value } = e.target;
+    const regex = /^[0-9\b]+$/;
+    if ((value === '' || regex.test(value))) {
+        if (name === "deliveryPhone") {
+            setDeliveryPhone(value);
+        }
+        if (name === "billingPhone") {
+            setBillingPhone(value);
+        }
+        if (name === "deliveryCompanyVAT") {
+            setDeliveryVAT(value);
+        }
+        if (name === "billingCompanyVAT") {
+            setBillingVAT(value);
+        }
+    }
+    if(value.length < 8) {
+        setIsDigitsValid(false);
+    }
+    if(value.length === 8) {
+        setIsDigitsValid(true);
+        console.log(isDigitsValid);
+    }
+  }
 
   function handleSubmit(event: any) {
     const target = event.target;
@@ -88,10 +119,6 @@ export default function Form() {
     let error = '';
     console.log("name");
 
-    if (!target.value) {
-      error = 'By skal udfyldes via postnummer'
-    }
-    
     if(deliveryCity===''){
       error = 'Postnummer er ikke gyldigt'
       event.preventDefault();
@@ -144,12 +171,12 @@ export default function Form() {
           </select> */}
 
           <input
-            className={zipCodeValid ? 'input-font' : 'error-control'}
+            className={isZipCodeValid ? 'input-font' : 'error-control'}
             type="text"
             name="deliveryZipCode"
             placeholder="Postnr"
             maxLength={4}
-            onChange={checkDeliveryZipCode}
+            onChange={validateDeliveryZipCode}
             required
           />
 
@@ -186,11 +213,14 @@ export default function Form() {
             required
           />
           <input
-            className="input-font"
+            className={isDigitsValid ? 'input-font' : 'error-control'}
             type="text"
             name="deliveryPhone"
             placeholder="Telefon"
+            pattern="[0-9]+"
             maxLength={8}
+            onChange={validateDigits}
+            value={deliveryPhone || ''}
             required
           />
           <input
@@ -208,12 +238,13 @@ export default function Form() {
             placeholder="Firmanavn"
           />
           <input
-            className="input-font"
+            className={isDigitsValid ? 'input-font' : 'error-control'}
             type="text"
             name="deliveryCompanyVAT"
             placeholder="VAT-nummer"
             maxLength={8}
-            pattern="\d"
+            onChange={validateDigits}
+            value={deliveryVAT || ''}
           />
           <br></br>
           <h1>Betalingsadresse</h1>
@@ -241,13 +272,13 @@ export default function Form() {
               </select>
 
               <input
-                className="input-font"
+                className={isZipCodeValid ? 'input-font' : 'error-control'}
                 type="text"
                 name="billingZipCode"
                 placeholder="Postnr"
                 pattern="^(?:[1-24-9]\d{3}|3[0-8]\d{2})$"
                 maxLength={4}
-                onChange={checkBillingZipCode}
+                onChange={validateBillingZipCode}
                 required
               />
               <input
@@ -280,12 +311,13 @@ export default function Form() {
                 required
               />
               <input
-                className="input-font"
+                className={isDigitsValid ? 'input-font' : 'error-control'}
                 type="text"
                 name="billingPhone"
                 placeholder="Telefon"
                 maxLength={8}
-                pattern="\d"
+                onChange={validateDigits}
+                value={billingPhone || ''}
                 required
               />
               <input
@@ -303,13 +335,14 @@ export default function Form() {
                 placeholder="Firmanavn"
               />
               <input
-                className="input-font"
+                className={isDigitsValid ? 'input-font' : 'error-control'}
                 type="text"
                 name="billingCompanyVAT"
                 placeholder="VAT-nummer"
                 maxLength={8}
-                pattern="\d"
-              />
+                onChange={validateDigits}
+                value={billingVAT || ''}
+                />
             </>
           ) : (
             <div> </div>
