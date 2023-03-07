@@ -6,8 +6,10 @@ export default function Form() {
   const [sameAsDeliveryAdress, setCheck] = useState(true);
 
 
-  const [zipCode,setZipCode] = useState('');
-  const [city,setCity] = useState('');
+  const [deliveryZipCode,setDeliveryZipCode] = useState('');
+  const [billingZipCode,setBillingZipCode] = useState('');
+  const [deliveryCity,setDeliveryCity] = useState('');
+  const [billingCity,setBillingCity] = useState('');
 
   const [zipCodeValid,setZipCodeValid] = useState(false);
 
@@ -46,18 +48,35 @@ export default function Form() {
   */
   var form = document.querySelector('form')
 
-  const checkZipCode = (e: { target: { name: string; value: string } }) => {
+  const checkDeliveryZipCode = (e: { target: { name: string; value: string } }) => {
     const { name, value } = e.target;
     
     const zipCode = zipCodes.find((zipCode) => zipCode.nr === value);
     if(zipCode !== undefined){
-      setZipCode(zipCode.nr);
-      setCity(zipCode.navn);
+      setDeliveryZipCode(zipCode.nr);
+      setDeliveryCity(zipCode.navn);
       setZipCodeValid(true);
       console.log(zipCodeValid);
     } else {
-      setZipCode('');
-      setCity('');
+      setDeliveryZipCode('');
+      setDeliveryCity('');
+      setZipCodeValid(false);
+      console.log(zipCodeValid);
+    }
+  };
+
+  const checkBillingZipCode = (e: { target: { name: string; value: string } }) => {
+    const { name, value } = e.target;
+    
+    const zipCode = zipCodes.find((zipCode) => zipCode.nr === value);
+    if(zipCode !== undefined){
+      setBillingZipCode(zipCode.nr);
+      setBillingCity(zipCode.navn);
+      setZipCodeValid(true);
+      console.log(zipCodeValid);
+    } else {
+      setBillingZipCode('');
+      setBillingCity('');
       setZipCodeValid(false);
       console.log(zipCodeValid);
     }
@@ -73,7 +92,7 @@ export default function Form() {
       error = 'By skal udfyldes via postnummer'
     }
     
-    if(city===''){
+    if(deliveryCity===''){
       error = 'Postnummer er ikke gyldigt'
       event.preventDefault();
     }
@@ -130,7 +149,7 @@ export default function Form() {
             name="deliveryZipCode"
             placeholder="Postnr"
             maxLength={4}
-            onChange={checkZipCode}
+            onChange={checkDeliveryZipCode}
             required
           />
 
@@ -139,7 +158,7 @@ export default function Form() {
             type="text"
             name="deliveryCity"
             placeholder="By"
-            value={city}
+            value={deliveryCity}
             required
             readOnly
             onSubmit={handleSubmit}
@@ -228,7 +247,7 @@ export default function Form() {
                 placeholder="Postnr"
                 pattern="^(?:[1-24-9]\d{3}|3[0-8]\d{2})$"
                 maxLength={4}
-                onChange={checkZipCode}
+                onChange={checkBillingZipCode}
                 required
               />
               <input
@@ -236,7 +255,7 @@ export default function Form() {
                 type="text"
                 name="billingCity"
                 placeholder="By"
-                value={city}
+                value={billingCity}
                 readOnly
                 required
               />
