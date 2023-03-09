@@ -1,12 +1,7 @@
 import './CartItem.css'
 import Item from '../models/Item'
 
-export default function CartItem(props: {
-    item: Item,
-    setQuantity: (id: string, val: number) => void,
-    remove: (id: string) => void,
-    upsell: (id: string) => void
-}) {
+export default function CartItem(props: { item: Item, setQuantity: Function, remove: Function, upsell: Function }) {
     let totalPrice = props.item.product.price * props.item.quantity;
     if (props.item.quantity >= props.item.product.rebateQuantity) {
         totalPrice = totalPrice * (1 - props.item.product.rebatePercent / 100);
@@ -26,19 +21,20 @@ export default function CartItem(props: {
                 <div className='right-container'>
                     <div className='itemText'>
                         <button onClick={() => { props.remove(props.item.product.id) }}>
-                            Fjern
+                            <img src="https://cdn-icons-png.flaticon.com/512/3917/3917378.png" width="23px" height="25px"/>
                         </button>
                         {props.item.quantity < props.item.product.rebateQuantity &&
                             <div className='quantity-nudge'>
-                                køb {props.item.product.rebateQuantity - props.item.quantity} mere
-                                og spar {props.item.product.rebatePercent}%&nbsp;&nbsp;&nbsp;
+                                Køb {props.item.product.rebateQuantity - props.item.quantity} mere
+                                og spar {props.item.product.rebatePercent}%!&nbsp;&nbsp;&nbsp;
                             </div>
                         }
                         <div className='amount'>
-                            <label htmlFor="amount">
-                                Antal
-                            </label>
-                            <input id="amount" type="number" min="1" max="100" value={props.item.quantity} onChange={(e) => { props.setQuantity(props.item.product.id, parseInt(e.target.value)) }} />
+                            <label>Antal</label>
+                            <input type="number" min="1" max="100" value={props.item.quantity} onChange={(e) => { 
+                                if((parseInt(e.target.value) > 0 && parseInt(e.target.value) < 100) || e.target.value === "")
+                                props.setQuantity(props.item.product.id, e.target.value) 
+                                }} />
                         </div>
                     </div>
                 </div>
@@ -46,12 +42,12 @@ export default function CartItem(props: {
             {props.item.product.upsellProduct &&
                 <div className='upsell'>
                     <div>
-                        Opgrader?
-                        <br />
-                        {props.item.product.upsellProduct.name}
+                        <h4>Opgrader?</h4>
+                        <b>{props.item.product.upsellProduct?.name}</b><br></br><br></br>
+                        <b>{props.item.product.upsellProduct?.price} DKK</b>
                     </div>
-                    <button onClick={() => { props.upsell(props.item.product.id) }}>
-                        vælg
+                    <button id="chooseBtn" onClick={() => { props.upsell(props.item.product.id) }}>
+                        Vælg
                     </button>
                 </div>
             }

@@ -37,6 +37,10 @@
     flex-direction: column;
     justify-content: space-between;
 }
+.itemText button {
+    background-color: white;
+    border: 1px solid white;
+}
 
 .right-container .itemText {
     align-items: flex-end;
@@ -50,10 +54,30 @@
 
 .quantity-nudge {
     color: red;
+    font-weight: bold;
 }
 
 .upsell {
     display: flex;
     justify-content: space-between;
-    border: 2px solid yellow;
+    border: 2px solid black;
+    border-radius: 8px;
+    align-items: center;
+    padding: 10px 15px;
+    width: 400px;
+    align: center;
+
+}
+.upsell h4 {
+    font-weight: bold;
+}
+.upsell button {
+    border: 1px solid lightgray;
+    border-radius: 16px;
+    background-color: green;
+    font-size: 14px;
+    color: white;
+    width: 70px;
+    height: 40px;
+
 }
