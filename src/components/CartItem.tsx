@@ -46,7 +46,7 @@ export default function CartItem(props: { item: Item, setQuantity: Function, rem
                         <b>{props.item.product.upsellProduct?.name}</b><br></br><br></br>
                         <b>{props.item.product.upsellProduct?.price} DKK</b>
                     </div>
-                    <button id="chooseBtn" onClick={() => { props.upsell(props.item.product.id) }}>
+                    <button onClick={() => { props.upsell(props.item.product.id) }}>
                         Vælg
                     </button>
                 </div>
