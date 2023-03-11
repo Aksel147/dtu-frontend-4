@@ -1,78 +1,76 @@
 .formBody {
-    font-family: Helvetica;
-    color: #333;
-    width: 99vw;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-block: 5%;
-    padding-inline: 5vw;
+	font-family: Helvetica;
+	color: #333;
+	width: 99vw;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding-block: 5%;
+	padding-inline: 5vw;
 }
 
 select {
-    display: block;
-    margin: 0 auto 10px auto;
-    border: 1px solid black;
-    padding: 10px 5px;
-    font-weight: bold;
-    width: 90%;
+	display: block;
+	margin: 0 auto 10px auto;
+	border: 1px solid black;
+	padding: 10px 5px;
+	font-weight: bold;
+	width: 90%;
 }
 
 h1 {
-    font-weight: 700;
-    color: #333;
+	font-weight: 700;
+	color: #333;
 }
 
 form {
-    text-align: center;
-    border: 1px solid black;
-    width: 100%;
-    padding: 20px;
+	text-align: center;
+	border: 1px solid black;
+	width: 100%;
+	padding: 20px;
 }
 
 form input {
-    display: block;
-    margin: 0 auto 10px auto;
-    border: 1px solid black;
-    padding: 10px;
-    font-weight: bold;
-    width: 90%;
+	display: block;
+	margin: 0 auto 10px auto;
+	border: 1px solid black;
+	padding: 10px;
+	font-weight: bold;
+	width: 90%;
 }
 
 .input-font {
-    font-weight: bold;
-    color: black;
+	font-weight: bold;
+	color: black;
 }
 
 .check {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 10px;
 }
 
 input[type='checkbox'] {
-    color: #333;
-    margin: 0;
-    margin-left: 10px;
-    width: 10%;
-    cursor: pointer;
+	color: #333;
+	margin: 0;
+	margin-left: 10px;
+	width: 10%;
+	cursor: pointer;
 }
 
-
-
 input.submit {
-    width: 30%;
-    background-color: black;
-    color: white;
-    margin-top: 20px;
+	width: 30%;
+	background-color: black;
+	color: white;
+	margin-top: 20px;
 }
 
 input:invalid {
-    /*box-shadow: 0 0 5px 1px red;*/
-    border: 1px solid red;
-  }
-  
-  input:focus:invalid {
-    box-shadow: none;
-  }
+	/*box-shadow: 0 0 5px 1px red;*/
+	border: 1px solid red;
+}
+
+input:focus:invalid {
+	box-shadow: none;
+}

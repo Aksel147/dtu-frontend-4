@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import './Checkout.css';
 import { useNavigate } from 'react-router-dom';
 import products from '../assets/product.json';
 import CartItem from '../components/CartItem';
 import Item from '../models/Item';
 import Product from '../models/Product';
+import './Checkout.css';
 
 export default function Checkout() {
 	const navigate = useNavigate();
@@ -19,18 +19,23 @@ export default function Checkout() {
 		{ productId: 'sugar-cane-1kg', quantity: 2, giftWrap: false },
 	];
 	const [shoppingCart, setShoppingCart] = useState<Item[]>(
-		defaultShoppingCart.map(
-			(item) =>
-			({
-				...item,
-				product: {
-					...products.find((product) => product.id === item.productId),
-					upsellProduct: products.find((product) => product.id === products.find((product) => product.id === item.productId)?.upsellProductId)
-				} as Product,
-			})
-		)
+		defaultShoppingCart.map((item) => ({
+			...item,
+			product: {
+				...products.find((product) => product.id === item.productId),
+				upsellProduct: products.find(
+					(product) =>
+						product.id ===
+						products.find((product) => product.id === item.productId)
+							?.upsellProductId
+				),
+			} as Product,
+		}))
 	);
-	let totalCartPrice = shoppingCart.reduce((a, v) => (a = reduceCartPrice(a, v)), 0);
+	let totalCartPrice = shoppingCart.reduce(
+		(a, v) => (a = reduceCartPrice(a, v)),
+		0
+	);
 
 	function reduceCartPrice(a: number, v: Item): number {
 		let totalPrice = v.product.price * v.quantity;
@@ -41,9 +46,13 @@ export default function Checkout() {
 	}
 
 	function setItemQuantity(productId: string, quantity: number) {
-		let realQty = quantity
-		if (realQty < 1) { realQty = 1 }
-		if (realQty > 99) { realQty = 99 }
+		let realQty = quantity;
+		if (realQty < 1) {
+			realQty = 1;
+		}
+		if (realQty > 99) {
+			realQty = 99;
+		}
 		let newCart = [...shoppingCart];
 		const productIndex = newCart.findIndex(
 			(item) => item.product?.id === productId
@@ -92,19 +101,26 @@ export default function Checkout() {
 		const productIndex = newCart.findIndex(
 			(item) => item.product?.id === productId
 		);
-		newCart[productIndex] = { ...newCart[productIndex], product: newCart[productIndex].product.upsellProduct }
+		newCart[productIndex] = {
+			...newCart[productIndex],
+			product: newCart[productIndex].product.upsellProduct,
+		};
 		setShoppingCart(newCart);
 	}
 
 	return (
 		<div className="checkout">
 			<div className="shopping-cart">
-				<h2>
-					Min indkøbskurv
-				</h2>
+				<h2>Min indkøbskurv</h2>
 				<div className="alert">
-					<span className="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-					<strong>10% Rabat!</strong> Bestil for over 300 DKK og få 10% rabat på din ordre.
+					<span
+						className="closebtn"
+						onClick={() => (this.parentElement.style.display = 'none')}
+					>
+						&times;
+					</span>
+					<strong>10% Rabat!</strong> Bestil for over 300 DKK og få 10% rabat på
+					din ordre.
 				</div>
 
 				<hr />
@@ -136,9 +152,7 @@ export default function Checkout() {
 					</div>
 					<hr />
 					<div className="placeOnLine">
-						<p className="totalSum bold">
-							Pris i alt (inkl. moms):
-						</p>
+						<p className="totalSum bold">Pris i alt (inkl. moms):</p>
 						<p className="totalSumRight bold">
 							{(totalCartPrice - rebate()).toLocaleString('da-DK')} DKK
 						</p>
