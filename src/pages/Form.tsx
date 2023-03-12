@@ -1,22 +1,34 @@
 import "./Form.css";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import zipCodes from '../assets/postnumre.json';
 
 export default function Form() {
   const [sameAsDeliveryAdress, setCheck] = useState(true);
 
-
+  const [deliveryCountry,setDeliveryCountry] = useState('');
   const [deliveryZipCode,setDeliveryZipCode] = useState('');
-  const [billingZipCode,setBillingZipCode] = useState('');
   const [deliveryCity,setDeliveryCity] = useState('');
-  const [billingCity,setBillingCity] = useState('');
+  const [deliveryAddressLine1,setDeliveryAddressLine1] = useState('');
+  const [deliveryAddressLine2,setDeliveryAddressLine2] = useState('');
+  const [deliveryName,setDeliveryName] = useState('');
   const [deliveryPhone,setDeliveryPhone] = useState('');
-  const [billingPhone,setBillingPhone] = useState('');
+  const [deliveryEmail,setDeliveryEmail] = useState('');
+  const [deliveryCompanyName,setDeliveryCompanyName] = useState('');
   const [deliveryVAT,setDeliveryVAT] = useState('');
-  const [billingVAT,setBillingVAT] = useState('');
 
-  const [isZipCodeValid,setIsZipCodeValid] = useState(false);
-  const [isDigitsValid,setIsDigitsValid] = useState(false);
+  const [billingCountry,setBillingCountry] = useState('');
+  const [billingZipCode,setBillingZipCode] = useState('');
+  const [billingCity,setBillingCity] = useState('');
+  const [billingAddressLine1,setBillingAddressLine1] = useState('');
+  const [billingAddressLine2,setBillingAddressLine2] = useState('');
+  const [billingName,setBillingName] = useState('');
+  const [billingPhone,setBillingPhone] = useState('');
+  const [billingEmail,setBillingEmail] = useState('');
+  const [billingCompanyName,setBillingCompanyName] = useState('');
+  const [billingVAT,setBillingVAT] = useState('');
+  
+  const [isZipCodeValid,setIsZipCodeValid] = useState(true);
+  const [isDigitsValid,setIsDigitsValid] = useState(true);
 
   /*
   const [state, setState] = useState({
@@ -29,7 +41,7 @@ export default function Form() {
     deliveryPhone: "",
     deliveryEmail: "",
     deliveryCompanyName: "",
-    deliveryCompanyVAT: "",
+    deliveryVAT: "",
     billingCountry: "",
     billingZipCode: "",
     billingCity: "",
@@ -39,9 +51,11 @@ export default function Form() {
     billingPhone: "",
     billingEmail: "",
     billingCompanyName: "",
-    billingCompanyVAT: "",
-  }); 
+    billingVAT: "",
+  },);
+  */ 
 
+  /*
   const onChange = (e: { target: { name: any; value: any } }) => {
     const { name, value } = e.target;
     setState((prevState) => ({
@@ -49,15 +63,15 @@ export default function Form() {
       [name]: value,
     }));
   };
-
   */
+
   var form = document.querySelector('form')
 
   const validateDeliveryZipCode = (e: { target: { name: string; value: string } }) => {
     const { name, value } = e.target;
     
     const zipCode = zipCodes.find((zipCode) => zipCode.nr === value);
-    if(zipCode !== undefined){
+    if(zipCode !== undefined) {
       setDeliveryZipCode(zipCode.nr);
       setDeliveryCity(zipCode.navn);
       setIsZipCodeValid(true);
@@ -117,7 +131,19 @@ export default function Form() {
     const target = event.target;
     const name = target.name;
     let error = '';
-    console.log("name");
+
+    if (sameAsDeliveryAdress) {
+      setBillingCountry(deliveryCountry);
+      setBillingZipCode(deliveryZipCode);
+      setBillingCity(deliveryCity);
+      setBillingAddressLine1(deliveryAddressLine1);
+      setBillingAddressLine2(deliveryAddressLine2);
+      setBillingName(deliveryName);
+      setBillingPhone(deliveryPhone);
+      setBillingEmail(deliveryEmail);
+      setBillingCompanyName(deliveryCompanyName);
+      setBillingVAT(deliveryVAT);
+    }
 
     if(deliveryCity===''){
       error = 'Postnummer er ikke gyldigt'
@@ -135,6 +161,8 @@ export default function Form() {
     // });
   }
 
+  //console.log(billingCountry);
+
   
 
   return (
@@ -142,7 +170,6 @@ export default function Form() {
       <div className="form">
         <form onSubmit={handleSubmit}>
         
-
           <h1>Leveringsadresse</h1>
           <select
             className="input-font"
@@ -196,6 +223,8 @@ export default function Form() {
             type="text"
             name="deliveryAddressLine1"
             placeholder="Addresse Linje 1"
+            value={deliveryAddressLine1 || ''}
+            onChange={(e) => setDeliveryAddressLine1(e.target.value)}
             required
           />
           <input
@@ -203,13 +232,16 @@ export default function Form() {
             type="text"
             name="deliveryAddressLine2"
             placeholder="Addresse Linje 2"
-
+            value={deliveryAddressLine2 || ''}
+            onChange={(e) => setDeliveryAddressLine2(e.target.value)}
           />
           <input
             className="input-font"
             type="text"
             name="Name"
             placeholder="Navn"
+            value={deliveryName || ''}
+            onChange={(e) => setDeliveryName(e.target.value)}
             required
           />
           <input
@@ -228,7 +260,8 @@ export default function Form() {
             type="email"
             name="deliveryEmail"
             placeholder="Email"
-            pattern="^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$"
+            value={deliveryEmail || ''}
+            onChange={(e) => setDeliveryEmail(e.target.value)}
             required
           />
           <input
@@ -236,6 +269,8 @@ export default function Form() {
             type="text"
             name="deliveryCompanyName"
             placeholder="Firmanavn"
+            value={deliveryCompanyName || ''}
+            onChange={(e) => setDeliveryCompanyName(e.target.value)}
           />
           <input
             className={isDigitsValid ? 'input-font' : 'error-control'}
@@ -262,8 +297,8 @@ export default function Form() {
             <>
               <select
                 className="input-font"
-                id="deliveryCountry"
-                name="deliveryCountry"
+                id="billingCountry"
+                name="billingCountry"
                 placeholder="Land"
               >
                 <option value="Denmark" selected>
@@ -295,6 +330,8 @@ export default function Form() {
                 type="text"
                 name="billingAddressLine1"
                 placeholder="Addresse Linje 1"
+                value={billingAddressLine1 || ''}
+                onChange={(e) => setBillingAddressLine1(e.target.value)}
                 required
               />
               <input
@@ -302,12 +339,16 @@ export default function Form() {
                 type="text"
                 name="billingAddressLine2"
                 placeholder="Addresse Linje 2"
+                value={billingAddressLine2 || ''}
+                onChange={(e) => setBillingAddressLine2(e.target.value)}
               />
               <input
                 className="input-font"
                 type="text"
                 name="Name"
                 placeholder="Navn"
+                value={billingName || ''}
+                onChange={(e) => setBillingName(e.target.value)}
                 required
               />
               <input
@@ -325,7 +366,8 @@ export default function Form() {
                 type="email"
                 name="billingEmail"
                 placeholder="Email"
-                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                value={billingEmail || ''}
+                onChange={(e) => setBillingEmail(e.target.value)}
                 required
               />
               <input
@@ -333,6 +375,8 @@ export default function Form() {
                 type="text"
                 name="billingCompanyName"
                 placeholder="Firmanavn"
+                value={billingCompanyName || ''}
+                onChange={(e) => setBillingCompanyName(e.target.value)}
               />
               <input
                 className={isDigitsValid ? 'input-font' : 'error-control'}
