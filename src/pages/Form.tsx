@@ -32,10 +32,21 @@ export default function Form() {
   const [isDigitsValidDeliveryVAT,setIsDigitsValidDeliveryVAT] = useState(true);
   const [isDigitsValidBillingVAT,setIsDigitsValidBillingVAT] = useState(true);
 
-  const [errorMessageZipCode, setErrorMessageZipCode] = useState('');
-  const [errorMessagePhone, setErrorMessagePhone] = useState('');
+  const [errorMessageDeliveryZipCode, setErrorMessageDeliveryZipCode] = useState('');
+  const [errorMessageBillingZipCode, setErrorMessageBillingZipCode] = useState('');
+  const [errorMessageDeliveryPhone, setErrorMessageDeliveryPhone] = useState('');
+  const [errorMessageBillingPhone, setErrorMessageBillingPhone] = useState('');
   const [errorMessageBillingVAT, setErrorMessageBillingVAT] = useState('');
   const [errorMessageDeliveryVAT, setErrorMessageDeliveryVAT] = useState('');
+  const [errorMessageDeliveryAddress, setErrorMessageDeliveryAddress] = useState('');
+  const [errorMessageBillingAddress, setErrorMessageBillingAddress] = useState('');
+  const [errorMessageDeliveryName, setErrorMessageDeliveryName] = useState('');
+  const [errorMessageBillingName, setErrorMessageBillingName] = useState('');
+  const [errorMessageDeliveryEmail, setErrorMessageDeliveryEmail] = useState('');
+  const [errorMessageBillingEmail, setErrorMessageBillingEmail] = useState('');
+
+
+
 
   /*
   const [state, setState] = useState({
@@ -124,7 +135,7 @@ export default function Form() {
     if(value.length < 8 && (name === "deliveryPhone" || name === "billingPhone")) {
         setIsDigitsValidPhone(false);
     }
-    if(value.length === 8 && (name === "deliveryPhone" || name === "billingPhone")) {
+    if((value.length === 8 || value.length === 0) && (name === "deliveryPhone" || name === "billingPhone")) {
         setIsDigitsValidPhone(true);
     }
     if(value.length < 8 && name === "deliveryCompanyVAT") {
@@ -161,31 +172,88 @@ export default function Form() {
 
     if (deliveryPhone.length < 8) {
       event.preventDefault();
-      setErrorMessagePhone('Indtast venligst 8 cifre');
+      setErrorMessageDeliveryPhone('Indtast 8 cifre');
       event.preventDefault();
     } else {
-      setErrorMessagePhone('');
+      setErrorMessageDeliveryPhone('');
+    }
+
+    if (billingPhone.length < 8) {
+      event.preventDefault();
+      setErrorMessageBillingPhone('Indtast 8 cifre');
+      event.preventDefault();
+    } else {
+      setErrorMessageBillingPhone('');
     }
 
     if (deliveryZipCode.length < 4) {
-      setErrorMessageZipCode('Indtast venligst et gyldigt postnummer');
+      setErrorMessageDeliveryZipCode('Indtast et gyldigt postnummer');
       event.preventDefault();
     } else {
-      setErrorMessageZipCode('');
+      setErrorMessageDeliveryZipCode('');
+    }
+
+    if (billingZipCode.length < 4) {
+      setErrorMessageBillingZipCode('Indtast et gyldigt postnummer');
+      event.preventDefault();
+    } else {
+      setErrorMessageBillingZipCode('');
     }
 
     if (billingVAT !== '' && billingVAT.length < 8) {
-      setErrorMessageBillingVAT('Indtast venligst 8 cifre');
+      setErrorMessageBillingVAT('Indtast 8 cifre');
       event.preventDefault();
     } else {
       setErrorMessageBillingVAT('');
     }
 
     if (deliveryVAT !== '' && deliveryVAT.length < 8) {
-      setErrorMessageDeliveryVAT('Indtast venligst 8 cifre');
+      setErrorMessageDeliveryVAT('Indtast 8 cifre');
       event.preventDefault();
     } else {
       setErrorMessageDeliveryVAT('');
+    }
+
+    if (deliveryAddressLine1 === '') {
+      setErrorMessageDeliveryAddress('Indtast en adresse');
+      event.preventDefault();
+    } else {
+      setErrorMessageDeliveryAddress('');
+    }
+
+    if (deliveryName === '') {
+      setErrorMessageDeliveryName('Indtast et navn');
+      event.preventDefault();
+    } else {
+      setErrorMessageDeliveryName('');
+    }
+
+    if (deliveryEmail === '') {
+      setErrorMessageDeliveryEmail('Indtast en email');
+      event.preventDefault();
+    } else {
+      setErrorMessageDeliveryEmail('');
+    }
+
+    if (billingAddressLine1 === '') {
+      setErrorMessageBillingAddress('Indtast en adresse');
+      event.preventDefault();
+    } else {
+      setErrorMessageBillingAddress('');
+    }
+
+    if (billingName === '') {
+      setErrorMessageBillingName('Indtast et navn');
+      event.preventDefault();
+    } else {
+      setErrorMessageBillingName('');
+    }
+
+    if (billingEmail === '') {
+      setErrorMessageBillingEmail('Indtast en email');
+      event.preventDefault();
+    } else {
+      setErrorMessageBillingEmail('');
     }
 
     // this.state.inputs[idx] = {
@@ -245,10 +313,9 @@ export default function Form() {
               placeholder="Indtast postnummer"
               maxLength={4}
               onChange={validateDeliveryZipCode}
-              required
             />
           </label>
-            <div className={`error-message ${errorMessageZipCode ? 'show' : 'hide'}`}>{errorMessageZipCode}</div>
+            <div className={`error-message ${errorMessageDeliveryZipCode ? 'show' : 'hide'}`}>{errorMessageDeliveryZipCode}</div>
           <label>
             By
             <input
@@ -257,10 +324,8 @@ export default function Form() {
               name="deliveryCity"
               placeholder="Hentes fra postnummer"
               value={deliveryCity}
-              required
               readOnly
               onSubmit={handleSubmit}
-            
             />
           </label>
           <label>
@@ -272,9 +337,9 @@ export default function Form() {
             placeholder="Adresse Linje 1"
             value={deliveryAddressLine1 || ''}
             onChange={(e) => setDeliveryAddressLine1(e.target.value)}
-            required
           />
           </label>
+          <div className={`error-message ${errorMessageDeliveryAddress ? 'show' : 'hide'}`}>{errorMessageDeliveryAddress}</div>
           <label>
           Adresse Linje 2
             <input
@@ -295,9 +360,9 @@ export default function Form() {
               placeholder="Indtast navn"
               value={deliveryName || ''}
               onChange={(e) => setDeliveryName(e.target.value)}
-              required
             />
           </label>
+            <div className={`error-message ${errorMessageDeliveryName ? 'show' : 'hide'}`}>{errorMessageDeliveryName}</div>
           <label>
             Telefon
             <input
@@ -308,10 +373,9 @@ export default function Form() {
               maxLength={8}
               onChange={validateDigits}
               value={deliveryPhone || ''}
-              required
             />
           </label>
-            <div className={`error-message ${errorMessagePhone ? 'show' : 'hide'}`}>{errorMessagePhone}</div>
+            <div className={`error-message ${errorMessageDeliveryPhone ? 'show' : 'hide'}`}>{errorMessageDeliveryPhone}</div>
           <label>
             Email
             <input
@@ -321,9 +385,9 @@ export default function Form() {
               placeholder="Indtast email"
               value={deliveryEmail || ''}
               onChange={(e) => setDeliveryEmail(e.target.value)}
-              required
             />
           </label>
+            <div className={`error-message ${errorMessageDeliveryEmail ? 'show' : 'hide'}`}>{errorMessageDeliveryEmail}</div>
           <label>
             Firmanavn
             <input
@@ -384,9 +448,9 @@ export default function Form() {
                   placeholder="Indtast postnummer"
                   maxLength={4}
                   onChange={validateBillingZipCode}
-                  required
                 />
               </label>
+                <div className={`error-message ${errorMessageBillingZipCode ? 'show' : 'hide'}`}>{errorMessageBillingZipCode}</div>
               <label>
                 By
                 <input
@@ -396,7 +460,6 @@ export default function Form() {
                   placeholder="Hentes fra postnummer"
                   value={billingCity}
                   readOnly
-                  required
                 />
               </label>
               <label>
@@ -408,7 +471,6 @@ export default function Form() {
                   placeholder="Addresse Linje 1"
                   value={billingAddressLine1 || ''}
                   onChange={(e) => setBillingAddressLine1(e.target.value)}
-                  required
                 />
               </label>
               <label>
@@ -422,6 +484,7 @@ export default function Form() {
                   onChange={(e) => setBillingAddressLine2(e.target.value)}
                 />
               </label>
+                <div className={`error-message ${errorMessageBillingAddress ? 'show' : 'hide'}`}>{errorMessageBillingAddress}</div>
               <label>
                 Navn
                 <input
@@ -431,9 +494,9 @@ export default function Form() {
                   placeholder="Indtast navn"
                   value={billingName || ''}
                   onChange={(e) => setBillingName(e.target.value)}
-                  required
                 />
               </label>
+               <div className={`error-message ${errorMessageBillingName ? 'show' : 'hide'}`}>{errorMessageBillingName}</div>
               <label>
                 Telefon
                 <input
@@ -444,9 +507,9 @@ export default function Form() {
                   maxLength={8}
                   onChange={validateDigits}
                   value={billingPhone || ''}
-                  required
                 />
               </label>
+                <div className={`error-message ${errorMessageBillingPhone ? 'show' : 'hide'}`}>{errorMessageBillingPhone}</div>
               <label>
                 Email
                 <input
@@ -456,9 +519,9 @@ export default function Form() {
                   placeholder="Indtast email"
                   value={billingEmail || ''}
                   onChange={(e) => setBillingEmail(e.target.value)}
-                  required
                 />
               </label>
+                <div className={`error-message ${errorMessageBillingEmail ? 'show' : 'hide'}`}>{errorMessageBillingEmail}</div>
               <label>
                 Firmanavn
                 <input
