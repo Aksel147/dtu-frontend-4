@@ -69,8 +69,6 @@ input[type='checkbox'] {
     border: 1px solid red
 }
 
-
-
 input.submit {
     width: 30%;
     background-color: black;
@@ -79,18 +77,19 @@ input.submit {
 }
 
 input:invalid {
-    /* box-shadow: 0 0 5px 1px red; */
+     /* box-shadow: 0 0 5px 1px red; */
     border: 1px solid rgb(0, 0, 0);
 }
   
-input:focus:invalid {
+/* input:focus:invalid {
     box-shadow: none;
-}
+    border: 1px solid red;
+} */
 
-input.required:invalid {
+/* input.required {
     color: red;
     border: 1px solid red;
-}
+} */
 
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
