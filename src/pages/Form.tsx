@@ -28,7 +28,14 @@ export default function Form() {
   const [billingVAT,setBillingVAT] = useState('');
   
   const [isZipCodeValid,setIsZipCodeValid] = useState(true);
-  const [isDigitsValid,setIsDigitsValid] = useState(true);
+  const [isDigitsValidPhone,setIsDigitsValidPhone] = useState(true);
+  const [isDigitsValidDeliveryVAT,setIsDigitsValidDeliveryVAT] = useState(true);
+  const [isDigitsValidBillingVAT,setIsDigitsValidBillingVAT] = useState(true);
+
+  const [errorMessageZipCode, setErrorMessageZipCode] = useState('');
+  const [errorMessagePhone, setErrorMessagePhone] = useState('');
+  const [errorMessageBillingVAT, setErrorMessageBillingVAT] = useState('');
+  const [errorMessageDeliveryVAT, setErrorMessageDeliveryVAT] = useState('');
 
   /*
   const [state, setState] = useState({
@@ -75,12 +82,10 @@ export default function Form() {
       setDeliveryZipCode(zipCode.nr);
       setDeliveryCity(zipCode.navn);
       setIsZipCodeValid(true);
-      console.log(isZipCodeValid);
     } else {
       setDeliveryZipCode('');
       setDeliveryCity('');
       setIsZipCodeValid(false);
-      console.log(isZipCodeValid);
     }
   };
 
@@ -92,12 +97,10 @@ export default function Form() {
       setBillingZipCode(zipCode.nr);
       setBillingCity(zipCode.navn);
       setIsZipCodeValid(true);
-      console.log(isZipCodeValid);
     } else {
       setBillingZipCode('');
       setBillingCity('');
       setIsZipCodeValid(false);
-      console.log(isZipCodeValid);
     }
   };
 
@@ -118,12 +121,23 @@ export default function Form() {
             setBillingVAT(value);
         }
     }
-    if(value.length < 8) {
-        setIsDigitsValid(false);
+    if(value.length < 8 && (name === "deliveryPhone" || name === "billingPhone")) {
+        setIsDigitsValidPhone(false);
     }
-    if(value.length === 8) {
-        setIsDigitsValid(true);
-        console.log(isDigitsValid);
+    if(value.length === 8 && (name === "deliveryPhone" || name === "billingPhone")) {
+        setIsDigitsValidPhone(true);
+    }
+    if(value.length < 8 && name === "deliveryCompanyVAT") {
+        setIsDigitsValidDeliveryVAT(false);
+    }
+    if((value.length === 8 || value.length === 0) && name === "deliveryCompanyVAT") {
+        setIsDigitsValidDeliveryVAT(true);
+    }
+    if(value.length < 8 && name === "billingCompanyVAT") {
+        setIsDigitsValidBillingVAT(false);
+    }
+    if((value.length === 8 || value.length === 0) && name === "billingCompanyVAT") {
+        setIsDigitsValidBillingVAT(true);
     }
   }
 
@@ -145,9 +159,33 @@ export default function Form() {
       setBillingVAT(deliveryVAT);
     }
 
-    if(deliveryCity===''){
-      error = 'Postnummer er ikke gyldigt'
+    if (deliveryPhone.length < 8) {
       event.preventDefault();
+      setErrorMessagePhone('Indtast venligst 8 cifre');
+      event.preventDefault();
+    } else {
+      setErrorMessagePhone('');
+    }
+
+    if (deliveryZipCode.length < 4) {
+      setErrorMessageZipCode('Indtast venligst et gyldigt postnummer');
+      event.preventDefault();
+    } else {
+      setErrorMessageZipCode('');
+    }
+
+    if (billingVAT !== '' && billingVAT.length < 8) {
+      setErrorMessageBillingVAT('Indtast venligst 8 cifre');
+      event.preventDefault();
+    } else {
+      setErrorMessageBillingVAT('');
+    }
+
+    if (deliveryVAT !== '' && deliveryVAT.length < 8) {
+      setErrorMessageDeliveryVAT('Indtast venligst 8 cifre');
+      event.preventDefault();
+    } else {
+      setErrorMessageDeliveryVAT('');
     }
 
     // this.state.inputs[idx] = {
@@ -163,26 +201,27 @@ export default function Form() {
 
   //console.log(billingCountry);
 
-  
-
   return (
+    // <div className={`error-message ${errorMessage ? 'show' : 'hide'}`}>{errorMessage}
     <div className="formBody">
       <div className="form">
         <form onSubmit={handleSubmit}>
         
           <h1>Leveringsadresse</h1>
-          <select
-            className="input-font"
-            id="deliveryCountry"
-            name="deliveryCountry"
-            placeholder="Land"
-            autoComplete="{false}"
-          >
-            <option value="Denmark" selected>
-              Danmark
-            </option>
-          </select>
-          
+          <label>
+            Land
+            <select
+              className="input-font"
+              id="deliveryCountry"
+              name="deliveryCountry"
+              placeholder="Land"
+              autoComplete="{false}"
+            >
+              <option value="Denmark" selected>
+                Danmark
+              </option>
+            </select>
+          </label>
           {/* <select
             className="input-font"
             id="deliveryZipCode"
@@ -196,91 +235,119 @@ export default function Form() {
               </option>
             ))}
           </select> */}
-
-          <input
-            className={isZipCodeValid ? 'input-font' : 'error-control'}
-            type="text"
-            name="deliveryZipCode"
-            placeholder="Postnr"
-            maxLength={4}
-            onChange={validateDeliveryZipCode}
-            required
-          />
-
-          <input
-            className="input-font read-only"
-            type="text"
-            name="deliveryCity"
-            placeholder="By"
-            value={deliveryCity}
-            required
-            readOnly
-            onSubmit={handleSubmit}
-          
-          />
+          <label>
+            Postnummer
+            <input
+              className={isZipCodeValid ? 'input-font' : 'error-control'}
+              type="text"
+              id="deliveryZipCode"
+              name="deliveryZipCode"
+              placeholder="Indtast postnummer"
+              maxLength={4}
+              onChange={validateDeliveryZipCode}
+              required
+            />
+          </label>
+            <div className={`error-message ${errorMessageZipCode ? 'show' : 'hide'}`}>{errorMessageZipCode}</div>
+          <label>
+            By
+            <input
+              className="input-font read-only"
+              type="text"
+              name="deliveryCity"
+              placeholder="Hentes fra postnummer"
+              value={deliveryCity}
+              required
+              readOnly
+              onSubmit={handleSubmit}
+            
+            />
+          </label>
+          <label>
+            Adresse Linje 1
           <input
             className="input-font"
             type="text"
             name="deliveryAddressLine1"
-            placeholder="Addresse Linje 1"
+            placeholder="Adresse Linje 1"
             value={deliveryAddressLine1 || ''}
             onChange={(e) => setDeliveryAddressLine1(e.target.value)}
             required
           />
-          <input
-            className="input-font"
-            type="text"
-            name="deliveryAddressLine2"
-            placeholder="Addresse Linje 2"
-            value={deliveryAddressLine2 || ''}
-            onChange={(e) => setDeliveryAddressLine2(e.target.value)}
-          />
-          <input
-            className="input-font"
-            type="text"
-            name="Name"
-            placeholder="Navn"
-            value={deliveryName || ''}
-            onChange={(e) => setDeliveryName(e.target.value)}
-            required
-          />
-          <input
-            className={isDigitsValid ? 'input-font' : 'error-control'}
-            type="text"
-            name="deliveryPhone"
-            placeholder="Telefon"
-            pattern="[0-9]+"
-            maxLength={8}
-            onChange={validateDigits}
-            value={deliveryPhone || ''}
-            required
-          />
-          <input
-            className="input-font"
-            type="email"
-            name="deliveryEmail"
-            placeholder="Email"
-            value={deliveryEmail || ''}
-            onChange={(e) => setDeliveryEmail(e.target.value)}
-            required
-          />
-          <input
-            className="input-font"
-            type="text"
-            name="deliveryCompanyName"
-            placeholder="Firmanavn"
-            value={deliveryCompanyName || ''}
-            onChange={(e) => setDeliveryCompanyName(e.target.value)}
-          />
-          <input
-            className={isDigitsValid ? 'input-font' : 'error-control'}
-            type="text"
-            name="deliveryCompanyVAT"
-            placeholder="VAT-nummer"
-            maxLength={8}
-            onChange={validateDigits}
-            value={deliveryVAT || ''}
-          />
+          </label>
+          <label>
+          Adresse Linje 2
+            <input
+              className="input-font"
+              type="text"
+              name="deliveryAddressLine2"
+              placeholder="Addresse Linje 2"
+              value={deliveryAddressLine2 || ''}
+              onChange={(e) => setDeliveryAddressLine2(e.target.value)}
+            />
+          </label>
+          <label>
+            Navn
+            <input
+              className="input-font"
+              type="text"
+              name="Name"
+              placeholder="Indtast navn"
+              value={deliveryName || ''}
+              onChange={(e) => setDeliveryName(e.target.value)}
+              required
+            />
+          </label>
+          <label>
+            Telefon
+            <input
+              className={isDigitsValidPhone ? 'input-font' : 'error-control'}
+              type="text"
+              name="deliveryPhone"
+              placeholder="Indtast telefon nummer"
+              maxLength={8}
+              onChange={validateDigits}
+              value={deliveryPhone || ''}
+              required
+            />
+          </label>
+            <div className={`error-message ${errorMessagePhone ? 'show' : 'hide'}`}>{errorMessagePhone}</div>
+          <label>
+            Email
+            <input
+              className="input-font"
+              type="email"
+              name="deliveryEmail"
+              placeholder="Indtast email"
+              value={deliveryEmail || ''}
+              onChange={(e) => setDeliveryEmail(e.target.value)}
+              required
+            />
+          </label>
+          <label>
+            Firmanavn
+            <input
+              className="input-font"
+              type="text"
+              name="deliveryCompanyName"
+              placeholder="Indtast firmanavn"
+              value={deliveryCompanyName || ''}
+              onChange={(e) => setDeliveryCompanyName(e.target.value)}
+            />
+          </label>
+          <label>
+            VAT-nummer
+            <input
+              className={isDigitsValidDeliveryVAT ? 'input-font' : 'error-control'}
+              type="text"
+              name="deliveryCompanyVAT"
+              placeholder="Indtast VAT-nummer"
+              maxLength={8}
+              onChange={validateDigits}
+              value={deliveryVAT || ''}
+            />
+          </label>
+          <div className={`error-message ${errorMessageDeliveryVAT ? 'show' : 'hide'}`}>{errorMessageDeliveryVAT}</div>
           <br></br>
           <h1>Betalingsadresse</h1>
           <div className="check">
@@ -295,98 +362,127 @@ export default function Form() {
 
           {!sameAsDeliveryAdress ? (
             <>
-              <select
-                className="input-font"
-                id="billingCountry"
-                name="billingCountry"
-                placeholder="Land"
-              >
-                <option value="Denmark" selected>
-                  Danmark
-                </option>
-              </select>
-
-              <input
-                className={isZipCodeValid ? 'input-font' : 'error-control'}
-                type="text"
-                name="billingZipCode"
-                placeholder="Postnr"
-                pattern="^(?:[1-24-9]\d{3}|3[0-8]\d{2})$"
-                maxLength={4}
-                onChange={validateBillingZipCode}
-                required
-              />
-              <input
-                className="input-font read-only"
-                type="text"
-                name="billingCity"
-                placeholder="By"
-                value={billingCity}
-                readOnly
-                required
-              />
-              <input
-                className="input-font"
-                type="text"
-                name="billingAddressLine1"
-                placeholder="Addresse Linje 1"
-                value={billingAddressLine1 || ''}
-                onChange={(e) => setBillingAddressLine1(e.target.value)}
-                required
-              />
-              <input
-                className="input-font"
-                type="text"
-                name="billingAddressLine2"
-                placeholder="Addresse Linje 2"
-                value={billingAddressLine2 || ''}
-                onChange={(e) => setBillingAddressLine2(e.target.value)}
-              />
-              <input
-                className="input-font"
-                type="text"
-                name="Name"
-                placeholder="Navn"
-                value={billingName || ''}
-                onChange={(e) => setBillingName(e.target.value)}
-                required
-              />
-              <input
-                className={isDigitsValid ? 'input-font' : 'error-control'}
-                type="text"
-                name="billingPhone"
-                placeholder="Telefon"
-                maxLength={8}
-                onChange={validateDigits}
-                value={billingPhone || ''}
-                required
-              />
-              <input
-                className="input-font"
-                type="email"
-                name="billingEmail"
-                placeholder="Email"
-                value={billingEmail || ''}
-                onChange={(e) => setBillingEmail(e.target.value)}
-                required
-              />
-              <input
-                className="input-font"
-                type="text"
-                name="billingCompanyName"
-                placeholder="Firmanavn"
-                value={billingCompanyName || ''}
-                onChange={(e) => setBillingCompanyName(e.target.value)}
-              />
-              <input
-                className={isDigitsValid ? 'input-font' : 'error-control'}
-                type="text"
-                name="billingCompanyVAT"
-                placeholder="VAT-nummer"
-                maxLength={8}
-                onChange={validateDigits}
-                value={billingVAT || ''}
+              <label>
+                Land
+                <select
+                  className="input-font"
+                  id="billingCountry"
+                  name="billingCountry"
+                  placeholder="Land"
+                >
+                  <option value="Denmark" selected>
+                    Danmark
+                  </option>
+                </select>
+              </label>
+              <label>
+                Postnummer 
+                <input
+                  className={isZipCodeValid ? 'input-font' : 'error-control'}
+                  type="text"
+                  name="billingZipCode"
+                  placeholder="Indtast postnummer"
+                  maxLength={4}
+                  onChange={validateBillingZipCode}
+                  required
                 />
+              </label>
+              <label>
+                By
+                <input
+                  className="input-font read-only"
+                  type="text"
+                  name="billingCity"
+                  placeholder="Hentes fra postnummer"
+                  value={billingCity}
+                  readOnly
+                  required
+                />
+              </label>
+              <label>
+                Adresse Linje 1
+                <input
+                  className="input-font"
+                  type="text"
+                  name="billingAddressLine1"
+                  placeholder="Addresse Linje 1"
+                  value={billingAddressLine1 || ''}
+                  onChange={(e) => setBillingAddressLine1(e.target.value)}
+                  required
+                />
+              </label>
+              <label>
+                Adresse Linje 2
+                <input
+                  className="input-font"
+                  type="text"
+                  name="billingAddressLine2"
+                  placeholder="Addresse Linje 2"
+                  value={billingAddressLine2 || ''}
+                  onChange={(e) => setBillingAddressLine2(e.target.value)}
+                />
+              </label>
+              <label>
+                Navn
+                <input
+                  className="input-font"
+                  type="text"
+                  name="Name"
+                  placeholder="Indtast navn"
+                  value={billingName || ''}
+                  onChange={(e) => setBillingName(e.target.value)}
+                  required
+                />
+              </label>
+              <label>
+                Telefon
+                <input
+                  className={isDigitsValidPhone ? 'input-font' : 'error-control'}
+                  type="text"
+                  name="billingPhone"
+                  placeholder="Indtast telefon nummer"
+                  maxLength={8}
+                  onChange={validateDigits}
+                  value={billingPhone || ''}
+                  required
+                />
+              </label>
+              <label>
+                Email
+                <input
+                  className="input-font"
+                  type="email"
+                  name="billingEmail"
+                  placeholder="Indtast email"
+                  value={billingEmail || ''}
+                  onChange={(e) => setBillingEmail(e.target.value)}
+                  required
+                />
+              </label>
+              <label>
+                Firmanavn
+                <input
+                  className="input-font"
+                  type="text"
+                  name="billingCompanyName"
+                  placeholder="Indtast firmanavn"
+                  value={billingCompanyName || ''}
+                  onChange={(e) => setBillingCompanyName(e.target.value)}
+                />
+              </label>
+              <label>
+                VAT-nummer
+                <input
+                  className={isDigitsValidBillingVAT ? 'input-font' : 'error-control'}
+                  type="text"
+                  name="billingCompanyVAT"
+                  placeholder="Indtast VAT-nummer"
+                  maxLength={8}
+                  onChange={validateDigits}
+                  value={billingVAT || ''}
+                  />
+                </label>
+                <div className={`error-message ${errorMessageBillingVAT ? 'show' : 'hide'}`}>{errorMessageBillingVAT}</div>
             </>
           ) : (
             <div> </div>
