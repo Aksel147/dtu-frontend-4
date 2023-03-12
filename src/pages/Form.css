@@ -1,12 +1,12 @@
 .formBody {
-	font-family: Helvetica;
-	color: #333;
-	width: 99vw;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	padding-block: 5%;
-	padding-inline: 5vw;
+    font-family: Helvetica;
+    color: #333;
+    width: 35vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-block: 5%;
+    padding-inline: 5vw;
 }
 
 select {
@@ -65,9 +65,24 @@ input[type='checkbox'] {
     cursor: pointer;
 }
 
+input[type='text'] {
+    width: 100%;
+    margin-left: 100px;
+    margin: 0px;
+}
+
+input[type='email'] {
+    width: 100%;
+    margin-left: 100px;
+    margin: 0px;
+}
+
 .error-control {
     border: 1px solid red
 }
+
+.error-message {
+    color: red;}
 
 input.submit {
 	width: 30%;
@@ -77,9 +92,8 @@ input.submit {
 }
 
 input:invalid {
-     /* box-shadow: 0 0 5px 1px red; */
     border: 1px solid rgb(0, 0, 0);
-}
+} 
   
 /* input:focus:invalid {
     box-shadow: none;
