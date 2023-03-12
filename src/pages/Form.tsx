@@ -34,30 +34,10 @@ export default function Form() {
 		}));
 	};
 
-	let handleSubmit = async (e) => {
-		e.preventDefault();
-
-		try {
-			let res = await fetch('http://130.225.170.74/data', {
-				method: 'POST',
-				body: JSON.stringify({ state }),
-			});
-
-			let resJson = await res.json();
-			if (resJson.status === 200) {
-				console.log('Success on submitting form data');
-			} else {
-				console.log('Some error occured');
-			}
-		} catch (err) {
-			console.log(err);
-		}
-	};
-
 	return (
 		<div className="formBody">
 			<div className="form">
-				<form onSubmit={handleSubmit}>
+				<form>
 					<h1>Leveringsadresse</h1>
 					<select
 						className="input-font"
