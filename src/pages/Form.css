@@ -123,12 +123,12 @@ input[type='email'] {
 }
 
 .error-control {
-    border: 1px solid red
+    border: 1px solid rgb(0, 0, 0)
 }
 
 .error-message {
     color: red;
-    font-size: small;
+    font-size: smaller;
     text-align: start;
     margin-left: 2px;
 }
