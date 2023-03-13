@@ -45,9 +45,6 @@ export default function Form() {
   const [errorMessageDeliveryEmail, setErrorMessageDeliveryEmail] = useState('');
   const [errorMessageBillingEmail, setErrorMessageBillingEmail] = useState('');
 
-
-
-
   /*
   const [state, setState] = useState({
     deliveryCountry: "",
@@ -276,6 +273,7 @@ export default function Form() {
         <form onSubmit={handleSubmit}>
         
           <h1>Leveringsadresse</h1>
+
           <label>
             Land
             <select
@@ -290,6 +288,44 @@ export default function Form() {
               </option>
             </select>
           </label>
+
+          <div className="form-row">
+
+          <div>
+          <label>
+            Fornavn*
+            <input
+              className="input-font"
+              type="text"
+              name="Name"
+              placeholder="Indtast navn"
+              value={deliveryName || ''}
+              onChange={(e) => setDeliveryName(e.target.value)}
+            />
+          </label>
+            <div className={`error-message ${errorMessageDeliveryName ? 'show' : 'hide'}`}>{errorMessageDeliveryName}</div>
+
+          </div>
+
+          <div>
+            <label>
+            Efternavn*
+            <input
+              className="input-font"
+              type="text"
+              name="Name"
+              placeholder="Indtast navn"
+              value={deliveryName || ''}
+              onChange={(e) => setDeliveryName(e.target.value)}
+            />
+          </label>
+            <div className={`error-message ${errorMessageDeliveryName ? 'show' : 'hide'}`}>{errorMessageDeliveryName}</div>
+
+          </div>
+
+          </div>
+
+          
           {/* <select
             className="input-font"
             id="deliveryZipCode"
@@ -303,19 +339,50 @@ export default function Form() {
               </option>
             ))}
           </select> */}
+
+        
+          
           <label>
-            Postnummer
+            Adresselinje 1*
+          <input
+            className="input-font"
+            type="text"
+            name="deliveryAddressLine1"
+            placeholder="Adresse Linje 1"
+            value={deliveryAddressLine1 || ''}
+            onChange={(e) => setDeliveryAddressLine1(e.target.value)}
+          />
+          </label>
+          <div className={`error-message ${errorMessageDeliveryAddress ? 'show' : 'hide'}`}>{errorMessageDeliveryAddress}</div>
+
+          <label>
+          Adresselinje 2
             <input
-              className={isZipCodeValid ? 'input-font' : 'error-control'}
+              className="input-font"
               type="text"
-              id="deliveryZipCode"
-              name="deliveryZipCode"
-              placeholder="Indtast postnummer"
-              maxLength={4}
-              onChange={validateDeliveryZipCode}
+              name="deliveryAddressLine2"
+              placeholder="Addresse Linje 2"
+              value={deliveryAddressLine2 || ''}
+              onChange={(e) => setDeliveryAddressLine2(e.target.value)}
             />
           </label>
+
+          <div className="form-row">
+          <div>
+            <label>
+              Postnummer*
+              <input
+                className={isZipCodeValid ? 'input-font' : 'error-control'}
+                type="text"
+                id="deliveryZipCode"
+                name="deliveryZipCode"
+                placeholder="Indtast postnummer"
+                maxLength={4}
+                onChange={validateDeliveryZipCode}
+              />
+            </label>
             <div className={`error-message ${errorMessageDeliveryZipCode ? 'show' : 'hide'}`}>{errorMessageDeliveryZipCode}</div>
+          </div>
           <label>
             By
             <input
@@ -328,43 +395,14 @@ export default function Form() {
               onSubmit={handleSubmit}
             />
           </label>
+          </div>
+
+          
+          
+          
+          
           <label>
-            Adresse Linje 1
-          <input
-            className="input-font"
-            type="text"
-            name="deliveryAddressLine1"
-            placeholder="Adresse Linje 1"
-            value={deliveryAddressLine1 || ''}
-            onChange={(e) => setDeliveryAddressLine1(e.target.value)}
-          />
-          </label>
-          <div className={`error-message ${errorMessageDeliveryAddress ? 'show' : 'hide'}`}>{errorMessageDeliveryAddress}</div>
-          <label>
-          Adresse Linje 2
-            <input
-              className="input-font"
-              type="text"
-              name="deliveryAddressLine2"
-              placeholder="Addresse Linje 2"
-              value={deliveryAddressLine2 || ''}
-              onChange={(e) => setDeliveryAddressLine2(e.target.value)}
-            />
-          </label>
-          <label>
-            Navn
-            <input
-              className="input-font"
-              type="text"
-              name="Name"
-              placeholder="Indtast navn"
-              value={deliveryName || ''}
-              onChange={(e) => setDeliveryName(e.target.value)}
-            />
-          </label>
-            <div className={`error-message ${errorMessageDeliveryName ? 'show' : 'hide'}`}>{errorMessageDeliveryName}</div>
-          <label>
-            Telefon
+            Telefon*
             <input
               className={isDigitsValidPhone ? 'input-font' : 'error-control'}
               type="text"
@@ -377,7 +415,7 @@ export default function Form() {
           </label>
             <div className={`error-message ${errorMessageDeliveryPhone ? 'show' : 'hide'}`}>{errorMessageDeliveryPhone}</div>
           <label>
-            Email
+            Email*
             <input
               className="input-font"
               type="email"
