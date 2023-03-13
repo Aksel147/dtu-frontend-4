@@ -111,7 +111,6 @@ export default function Checkout() {
 				<div className="alert">
 					<span
 						className="closebtn"
-						onClick={() => (this.parentElement.style.display = 'none')}
 					>
 						&times;
 					</span>
