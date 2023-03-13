@@ -96,6 +96,15 @@ export default function Checkout() {
 		setShoppingCart(newCart);
 	}
 
+	function getCart() {
+		var currentCart = [];
+
+		if(!(shoppingCart.length === 0)) {
+			
+		
+		}
+	}
+
 	return (
 		<div className="checkout">
 			<div className="shopping-cart">

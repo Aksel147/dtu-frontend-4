@@ -21,7 +21,7 @@ export default function CartItem(props: { item: Item, setQuantity: Function, rem
                 <div className='right-container'>
                     <div className='itemText'>
                         <button onClick={() => { props.remove(props.item.product.id) }}>
-                            <img src="https://cdn-icons-png.flaticon.com/512/3917/3917378.png" width="23px" height="25px"/>
+                            <img src="https://cdn-icons-png.flaticon.com/512/3917/3917378.png" alt={props.item.product.name} width="23px" height="25px"/>
                         </button>
                         {props.item.quantity < props.item.product.rebateQuantity &&
                             <div className='quantity-nudge'>
