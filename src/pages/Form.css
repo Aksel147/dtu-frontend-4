@@ -1,7 +1,7 @@
 .formBody {
     font-family: Helvetica;
     color: #333;
-    width: 35vw;
+    width: 100;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -15,7 +15,7 @@ select {
     border: 1px solid black;
     padding: 10px 5px;
     font-weight: bold;
-    width: 90%;
+    width: 100%;
 }
 
 h1 {
@@ -25,9 +25,19 @@ h1 {
 
 form {
     text-align: center;
+    display: flex;
+    flex-direction: column;
     border: 1px solid black;
     width: 100%;
     padding: 20px;
+}
+
+.form-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    gap: 10px;
 }
 
 form input {
@@ -43,6 +53,14 @@ form input {
     outline: none;
     cursor: default;
     background-color: #eeeeee;
+}
+
+label {
+    font-weight: bold;
+    color: black;
+    display: block;
+    /* text-align: left;
+    text-indent: 5px; */
 }
 
 .input-font {
