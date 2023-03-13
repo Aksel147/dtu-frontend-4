@@ -389,10 +389,6 @@ export default function Form() {
             />
           </label>
           </div>
-
-          
-          
-          
           
           <label>
             Telefon<span title="Påkrævet felt">*</span>
@@ -442,6 +438,7 @@ export default function Form() {
               maxLength={8}
               onChange={validateDigits}
               value={deliveryVAT || ''}
+              
             />
           </label>
           <div className={`error-message ${errorMessageDeliveryVAT ? 'show' : 'hide'}`}>{errorMessageDeliveryVAT}</div>
@@ -457,6 +454,7 @@ export default function Form() {
             />
           </div>
 
+          {/* TODO: create billing address component */}
           {!sameAsDeliveryAdress ? (
             <>
               <label>
