@@ -37,7 +37,7 @@ test.describe('Test on localhost', () => {
 
         })
 
-        test.only('Write unacceptable answers into to form', async ({ formTestPage }) => {
+        test('Write unacceptable answers into to form', async ({ formTestPage }) => {
 
             // Act
             await formTestPage.FillOutFormUnacceptable()
