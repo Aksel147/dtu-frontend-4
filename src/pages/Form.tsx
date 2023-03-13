@@ -27,47 +27,62 @@ export default function Form() {
 		billingCompanyVAT: '',
 	});
 
-
+  // Delivery information
+  // Delivery address
   const [deliveryCountry,setDeliveryCountry] = useState('');
   const [deliveryZipCode,setDeliveryZipCode] = useState('');
   const [deliveryCity,setDeliveryCity] = useState('');
   const [deliveryAddressLine1,setDeliveryAddressLine1] = useState('');
   const [deliveryAddressLine2,setDeliveryAddressLine2] = useState('');
-
+  // Delivery contact
   const [deliveryFirstName,setDeliveryFirstName] = useState('');
   const [deliveryLastName,setDeliveryLastName] = useState('');
   const [deliveryPhone,setDeliveryPhone] = useState('');
   const [deliveryEmail,setDeliveryEmail] = useState('');
-  
+  // Delivery company
   const [deliveryCompanyName,setDeliveryCompanyName] = useState('');
   const [deliveryVAT,setDeliveryVAT] = useState('');
 
+  // Billing information
+  // Billing address
   const [billingCountry,setBillingCountry] = useState('');
   const [billingZipCode,setBillingZipCode] = useState('');
   const [billingCity,setBillingCity] = useState('');
   const [billingAddressLine1,setBillingAddressLine1] = useState('');
   const [billingAddressLine2,setBillingAddressLine2] = useState('');
+  // Billing contact
   const [billingName,setBillingName] = useState('');
   const [billingPhone,setBillingPhone] = useState('');
   const [billingEmail,setBillingEmail] = useState('');
+  // Billing company
   const [billingCompanyName,setBillingCompanyName] = useState('');
   const [billingVAT,setBillingVAT] = useState('');
   
+  // Validation
   const [isZipCodeValid,setIsZipCodeValid] = useState(true);
   const [isDigitsValidPhone,setIsDigitsValidPhone] = useState(true);
   const [isDigitsValidDeliveryVAT,setIsDigitsValidDeliveryVAT] = useState(true);
   const [isDigitsValidBillingVAT,setIsDigitsValidBillingVAT] = useState(true);
 
+  // Error messages
   const [errorMessageDeliveryZipCode, setErrorMessageDeliveryZipCode] = useState('');
   const [errorMessageBillingZipCode, setErrorMessageBillingZipCode] = useState('');
+  
   const [errorMessageDeliveryPhone, setErrorMessageDeliveryPhone] = useState('');
   const [errorMessageBillingPhone, setErrorMessageBillingPhone] = useState('');
-  const [errorMessageBillingVAT, setErrorMessageBillingVAT] = useState('');
+  
   const [errorMessageDeliveryVAT, setErrorMessageDeliveryVAT] = useState('');
+  const [errorMessageBillingVAT, setErrorMessageBillingVAT] = useState('');
+  
   const [errorMessageDeliveryAddress, setErrorMessageDeliveryAddress] = useState('');
   const [errorMessageBillingAddress, setErrorMessageBillingAddress] = useState('');
-  const [errorMessageDeliveryName, setErrorMessageDeliveryName] = useState('');
-  const [errorMessageBillingName, setErrorMessageBillingName] = useState('');
+  
+  const [errorMessageDeliveryFirstName, setErrorMessageDeliveryFirstName] = useState('');
+  const [errorMessageBillingFirstName, setErrorMessageBillingFirstName] = useState('');
+
+  const [errorMessageDeliveryLastName, setErrorMessageDeliveryLastName] = useState('');
+  const [errorMessageBillingLastName, setErrorMessageBillingLastName] = useState('');
+  
   const [errorMessageDeliveryEmail, setErrorMessageDeliveryEmail] = useState('');
   const [errorMessageBillingEmail, setErrorMessageBillingEmail] = useState('');
 
@@ -182,6 +197,49 @@ export default function Form() {
     }
   }
 
+  function validateDeliveryFirstName(firstName: String) {
+    if (firstName.length < 1) {
+      setErrorMessageDeliveryFirstName('Indtast fornavn');
+      return false;
+    } else {
+      setErrorMessageDeliveryFirstName('');
+      return true;
+    }
+  }
+
+  function validateDeliveryLastName(lastName: String) {
+    if (lastName.length < 1) {
+      setErrorMessageDeliveryLastName('Indtast efternavn');
+      return false;
+    } else {
+      setErrorMessageDeliveryLastName('');
+      return true;
+    }
+  }
+
+  function validateDeliveryEmail(email: String) {
+    if (email.length < 1) {
+      setErrorMessageDeliveryEmail('Indtast email');
+      return false;
+    } else {
+      setErrorMessageDeliveryEmail('');
+      return true;
+    }
+  }
+
+  function validateDeliveryAddress(address: String) {
+    if (address.length < 1) {
+      setErrorMessageDeliveryAddress('Indtast adresse');
+      return false;
+    } else {
+      setErrorMessageDeliveryAddress('');
+      return true;
+    }
+  }
+
+
+
+  // On submit press
   function handleSubmit(event: any) { // TODO: specify event type
     const target = event.target;
     const name = target.name;
@@ -251,11 +309,12 @@ export default function Form() {
       setErrorMessageDeliveryAddress('');
     }
 
-    if (deliveryFirstName === '') {
-      setErrorMessageDeliveryName('Indtast et navn');
+    if (validateDeliveryFirstName(deliveryFirstName) === false) {
       event.preventDefault();
-    } else {
-      setErrorMessageDeliveryName('');
+    }
+
+    if (validateDeliveryLastName(deliveryLastName) === false) {
+      event.preventDefault();
     }
 
     if (deliveryEmail === '') {
@@ -273,10 +332,10 @@ export default function Form() {
     }
 
     if (billingName === '') {
-      setErrorMessageBillingName('Indtast et navn');
+      setErrorMessageBillingFirstName('Indtast et navn');
       event.preventDefault();
     } else {
-      setErrorMessageBillingName('');
+      setErrorMessageBillingFirstName('');
     }
 
     if (billingEmail === '') {
@@ -334,9 +393,11 @@ export default function Form() {
               placeholder="Indtast fornavn"
               value={deliveryFirstName || ''}
               onChange={(e) => setDeliveryFirstName(e.target.value)}
+              onBlur={(e) => validateDeliveryFirstName(e.target.value)}
+              autoFocus
             />
           </label>
-            <div className={`error-message ${errorMessageDeliveryName ? 'show' : 'hide'}`}>{errorMessageDeliveryName}</div>
+            <div className={`error-message ${errorMessageDeliveryFirstName ? 'show' : 'hide'}`}>{errorMessageDeliveryFirstName}</div>
 
           </div>
 
@@ -350,10 +411,10 @@ export default function Form() {
               placeholder="Indtast efternavn"
               value={deliveryLastName || ''}
               onChange={(e) => setDeliveryLastName(e.target.value)}
-              // onBlur={(e) => validateLastName(e)}
+              onBlur={(e) => validateDeliveryLastName(e.target.value)}
             />
           </label>
-            <div className={`error-message ${errorMessageDeliveryName ? 'show' : 'hide'}`}>{errorMessageDeliveryName}</div>
+            <div className={`error-message ${errorMessageDeliveryLastName ? 'show' : 'hide'}`}>{errorMessageDeliveryLastName}</div>
 
           </div>
 
@@ -414,9 +475,10 @@ export default function Form() {
             className="input-font"
             type="text"
             name="deliveryAddressLine1"
-            placeholder="Adresse Linje 1"
+            placeholder="Adresselinje 1"
             value={deliveryAddressLine1 || ''}
             onChange={(e) => setDeliveryAddressLine1(e.target.value)}
+            onBlur={(e) => validateDeliveryAddress(e.target.value)}
           />
           </label>
           <div className={`error-message ${errorMessageDeliveryAddress ? 'show' : 'hide'}`}>{errorMessageDeliveryAddress}</div>
@@ -427,7 +489,7 @@ export default function Form() {
               className="input-font"
               type="text"
               name="deliveryAddressLine2"
-              placeholder="Addresse Linje 2"
+              placeholder="Adresselinje 2"
               value={deliveryAddressLine2 || ''}
               onChange={(e) => setDeliveryAddressLine2(e.target.value)}
             />
@@ -489,6 +551,7 @@ export default function Form() {
               placeholder="Indtast email"
               value={deliveryEmail || ''}
               onChange={(e) => setDeliveryEmail(e.target.value)}
+              onBlur={(e) => validateDeliveryEmail(e.target.value)}
             />
           </label>
             <div className={`error-message ${errorMessageDeliveryEmail ? 'show' : 'hide'}`}>{errorMessageDeliveryEmail}</div>
@@ -519,7 +582,7 @@ export default function Form() {
           <br></br>
           <h3>Betalingsadresse</h3>
           <div className="check">
-            <label htmlFor="checkbox">Samme som leveringsadresse</label>
+            <label className="no-margin" htmlFor="checkbox">Samme som leveringsadresse</label>
             <input
               type="checkbox"
               checked={sameAsDeliveryAdress}
@@ -600,7 +663,7 @@ export default function Form() {
                   onChange={(e) => setBillingName(e.target.value)}
                 />
               </label>
-               <div className={`error-message ${errorMessageBillingName ? 'show' : 'hide'}`}>{errorMessageBillingName}</div>
+               <div className={`error-message ${errorMessageBillingFirstName ? 'show' : 'hide'}`}>{errorMessageBillingFirstName}</div>
               <label>
                 Telefon
                 <input
