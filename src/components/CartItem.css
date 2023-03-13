@@ -72,9 +72,10 @@
     font-weight: bold;
 }
 .upsell button {
+    font-weight: bold;
     border: 1px solid lightgray;
     border-radius: 16px;
-    background-color: green;
+    background-color: #1c5f0f;
     font-size: 14px;
     color: white;
     width: 70px;
