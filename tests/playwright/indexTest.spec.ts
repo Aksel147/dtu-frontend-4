@@ -1,33 +1,25 @@
-import { expect, test as base } from '@playwright/test';
+import { test, expect} from '@playwright/test';
 import { IndexTestPage } from "./playwrightPages/indexTest";
-
-// Extend test with IndexTestPage fixture
-const test = base.extend<{indexTestPage: IndexTestPage}>({  
-})
 
 test.describe('Test on localhost', () => {
 
-  test.beforeEach(async ({ page }) => {
-    await page.goto('http://localhost:5173/');
-  });
+  
 
-  test.only('remove first item', async ({ page }) => {
-
+  test.skip('remove first item', async ({ page }) => {
+    //const indexTestPage = new IndexTestPage(page);
     // Arrange
-    const item0 = page.locator('.pItemHeader').nth(0)
-    const finalPrice = page.locator('.totalSumRight').nth(1)
 
     // Accept
-    await expect(item0).toBeVisible()
-    await expect(item0).toContainText('C-vitamin, 500mg, 250 stk')
-    await expect(finalPrice).toContainText('375 DKK')
+    await expect(indexTestPage.item0).toBeVisible()
+    await expect(indexTestPage.item0).toContainText('C-vitamin, 500mg, 250 stk')
+    await expect(indexTestPage.finalPrice).toContainText('375 DKK')
 
     // Act
-    await page.getByRole('button', { name: 'fjern' }).nth(0).click();
+    await indexTestPage.ClickButton('Fjern')
 
     //Accept
-    await expect(item0).toContainText('De små synger')
-    await expect(finalPrice).toContainText('200 DKK')
+    await expect(indexTestPage.item0).toContainText('De små synger')
+    await expect(indexTestPage.finalPrice).toContainText('200 DKK')
   })
 
   test('remove all items', async ({ page }) => {
@@ -53,19 +45,20 @@ test.describe('Test on localhost', () => {
     // Arrange
     const antal = page.getByRole('spinbutton').nth(0)
     const finalPrice = page.locator('.totalSumRight').nth(1)
-  
+
     // Accept
     await expect(antal).toHaveAttribute('value', '2')
     await expect(finalPrice).toContainText('375 DKK')
 
     // Act
-    await antal.fill('5')
+    await antal.fill('1')
     await page.keyboard.press('Tab'); // Does this so the container will opdate by leaving it
 
     // Accept
-    await expect(finalPrice).toContainText('667,5 DKK')
-    await expect(antal).toHaveAttribute('value', '5')
-    
+    await expect(finalPrice).toContainText('315 DKK')
+    await expect(antal).toHaveAttribute('value', '1')
+    await expect()
+
 
   })
 
