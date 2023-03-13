@@ -7,9 +7,10 @@ export default function CartItem(props: {
     remove: (id: string) => void,
     upsell: (id: string) => void
 }) {
-    let totalPrice = props.item.product.price * props.item.quantity;
+    let subtotalPrice = props.item.product.price * props.item.quantity;
+    let totalPrice = subtotalPrice;
     if (props.item.quantity >= props.item.product.rebateQuantity) {
-        totalPrice = totalPrice * (1 - props.item.product.rebatePercent / 100);
+        totalPrice = subtotalPrice * (1 - props.item.product.rebatePercent / 100);
     }
 
     return (
@@ -20,7 +21,18 @@ export default function CartItem(props: {
                         width="120px" height="120px" className="image2" />
                     <div className="itemText">
                         <p className="pItemHeader">{props.item.product.name}</p>
-                        <p className="pItemPrice">{totalPrice.toLocaleString('da-DK')} {props.item.product.currency}</p>
+                        <p
+                            className="pItemPrice"
+                        >
+                            <span style={{ textDecoration: subtotalPrice !== totalPrice ? 'line-through' : '' }}>
+                                {subtotalPrice.toLocaleString('da-DK')} {props.item.product.currency}
+                            </span>
+                            {subtotalPrice !== totalPrice &&
+                                <span className='reducedPrice'>
+                                    {totalPrice.toLocaleString('da-DK')} {props.item.product.currency}
+                                </span>
+                            }
+                        </p>
                     </div>
                 </div>
                 <div className='right-container'>
