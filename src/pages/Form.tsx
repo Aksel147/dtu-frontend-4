@@ -334,7 +334,6 @@ export default function Form() {
           </div>
 
           </div>
-        
           <label>
             Adresselinje 1<span title="Påkrævet felt">*</span>
           <input
