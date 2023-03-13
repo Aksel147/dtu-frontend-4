@@ -79,15 +79,17 @@ function FormItem() {
   }
 
   function checkZipCode(zipCode: string) {
+    const regex = /^[0-9\b]+$/;
+    if (zipCode === "" || regex.test(zipCode)) {
+      setZipCode(zipCode);
+    }
     const zipCodeInfo = zipCodes.find(
       (zipCodeInfo) => zipCodeInfo.nr === zipCode
     );
     if (zipCodeInfo !== undefined) {
-      setZipCode(zipCodeInfo.nr);
       setCity(zipCodeInfo.navn);
       setIsZipCodeValid(true);
     } else {
-      setZipCode("");
       setCity("");
       setIsZipCodeValid(false);
     }
@@ -240,6 +242,7 @@ function FormItem() {
               type="text"
               id="ZipCode"
               name="ZipCode"
+              value={zipCode || ""}
               placeholder="Indtast postnummer"
               maxLength={4}
               onChange={(e) => checkZipCode(e.target.value)}
