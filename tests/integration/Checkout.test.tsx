@@ -9,8 +9,9 @@ it('check rebate on item: Rørsukker, 1000g', async () => {
 	const quantityField = screen.getAllByDisplayValue(2)[1];
 	const price = screen.getByText('80 DKK');
 
-	await userEvent.clear(quantityField);
-	await userEvent.type(quantityField, '4');
+	// Select all text and insert 4 as quantity
+	await userEvent.tripleClick(quantityField);
+	await userEvent.keyboard('4');
 
 	expect(price).toHaveTextContent('120 DKK');
 });
@@ -18,7 +19,8 @@ it('check rebate on item: Rørsukker, 1000g', async () => {
 it('check upsell option on item: Rørsukker, 1000g ', async () => {
 	render(<App />, { wrapper: BrowserRouter });
 
-	const chooseButton = screen.getAllByText('vælg')[2];
+	const chooseButton = screen.getAllByText('Vælg')[2];
 	await userEvent.click(chooseButton);
+
 	expect(screen.getByText('Rørsukker, økologisk, 1000g'));
 });
