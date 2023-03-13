@@ -1,5 +1,5 @@
 //import { test, expect } from '@playwright/test';
-import { IndexTestPage } from "./playwrightPages/indexTest";
+import { IndexTestPage } from "./playwrightPages/indexPage";
 import { expect, test as base } from '@playwright/test';
 
 
@@ -120,93 +120,7 @@ test.describe('Test on localhost', () => {
 
   })
 
-  test.describe('Test form page', () => {
 
-    test.beforeEach(async ({ page }) => {
-      await page.goto('http://localhost:5173/form');
-
-    });
-
-    test.skip('Write acceptable answers into to form', async ({ page }) => {
-
-      // Arrange
-      const Postnr = page.getByPlaceholder('Postnr').nth(0)
-      const By = page.getByPlaceholder('By').nth(0)
-      const Addresse_Linje_1 = page.getByPlaceholder('Addresse Linje 1').nth(0)
-      const Addresse_Linje_2 = page.getByPlaceholder('Addresse Linje 2').nth(0)
-      const Navn = page.getByPlaceholder('Navn').nth(0)
-      const Telefon = page.getByPlaceholder('Telefon').nth(0)
-      const Email = page.getByPlaceholder('Email').nth(0)
-      const Firmanavn = page.getByPlaceholder('Firmanavn').nth(0)
-      const VAT_nummer = page.getByPlaceholder('vAT-nummer').nth(0)
-
-      // Act
-      await Postnr.type('2770')
-      await By.type('Kastrup')
-      await Addresse_Linje_1.type('PastaMedRis 69')
-      await Addresse_Linje_2.type('MomsSpaghetti 420')
-      await Navn.type('Lars Larsen')
-      await Telefon.type('12345678')
-      await Email.type('MonkeyMan@Gmail.com')
-      await Firmanavn.type('xXx_AssKicker_xXx')
-      await VAT_nummer.type('DK 87654321')
-
-      // Accept
-      expect(Postnr).toContain('2770')
-      expect(By).toContain('Kastrup')
-      expect(Addresse_Linje_1).toContain('PastaMedRis 69')
-      expect(Addresse_Linje_2).toContain('MomsSpaghetti 420')
-      expect(Navn).toContain('Lars Larsen')
-      expect(Telefon).toContain('12345678')
-      expect(Email).toContain('MonkeyMan@Gmail.com')
-      expect(Firmanavn).toContain('xXx_AssKicker_xXx')
-      expect(VAT_nummer).toContain('DK 87654321')
-    })
-
-    test.skip('Write unacceptable answers into to form', async ({ page }) => {
-      const Postnr = page.getByPlaceholder('Postnr').nth(0)
-      const By = page.getByPlaceholder('By').nth(0)
-      const Addresse_Linje_1 = page.getByPlaceholder('Addresse Linje 1').nth(0)
-      const Addresse_Linje_2 = page.getByPlaceholder('Addresse Linje 2').nth(0)
-      const Navn = page.getByPlaceholder('Navn').nth(0)
-      const Telefon = page.getByPlaceholder('Telefon').nth(0)
-      const Email = page.getByPlaceholder('Email').nth(0)
-      const Firmanavn = page.getByPlaceholder('Firmanavn').nth(0)
-      const VAT_nummer = page.getByPlaceholder('vAT-nummer').nth(0)
-
-      // Act
-      await Postnr.type('2770')
-      await By.type('Kastrup')
-      await Addresse_Linje_1.type('PastaMedRis 69')
-      await Addresse_Linje_2.type('MomsSpaghetti 420')
-      await Navn.type('Lars Larsen')
-      await Telefon.type('12345678')
-      await Email.type('MonkeyMan@Gmail.com')
-      await Firmanavn.type('xXx_AssKicker_xXx')
-      await VAT_nummer.type('DK 87654321')
-
-      // Accept
-      expect(Postnr).toContain('2770')
-      expect(By).toContain('Kastrup')
-      expect(Addresse_Linje_1).toContain('PastaMedRis 69')
-      expect(Addresse_Linje_2).toContain('MomsSpaghetti 420')
-      expect(Navn).toContain('Lars Larsen')
-      expect(Telefon).toContain('12345678')
-      expect(Email).toContain('MonkeyMan@Gmail.com')
-      expect(Firmanavn).toContain('xXx_AssKicker_xXx')
-      expect(VAT_nummer).toContain('DK 87654321')
-    })
-
-    test.skip('Test same billing adress', async ({ page }) => {
-
-      await page.getByRole('checkbox').click();
-
-      // copy act from 'Write acceptable answers into to form'
-
-    })
-
-
-  })
 
 })
 
