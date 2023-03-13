@@ -1,31 +1,31 @@
-import { test, expect } from '@playwright/test';
-//import { IndexTestPage } from "./playwrightPages/indexTest";
-// import { expect, test as base } from '@playwright/test';
+//import { test, expect } from '@playwright/test';
+import { IndexTestPage } from "./playwrightPages/indexTest";
+import { expect, test as base } from '@playwright/test';
 
-/*
+
 // Extend test with IndexTestPage fixture
-const test = base.extend<{indexTestPage: IndexTestPage}>({
-    indexTestPage: async ({ page}, use) => {
-      let indexTestPage = new IndexTestPage(page)
-    }
+const test = base.extend<{ indexTestPage: IndexTestPage }>({
+  indexTestPage: async ({ page }, use) => {
+    const indexTestPage = new IndexTestPage(page)
+    use(indexTestPage)
+  }
 })
- */
+
 
 test.describe('Test on localhost', () => {
 
   test.describe('Test index page', () => {
 
     test.beforeEach(async ({ page }) => {
-      //const indexTest = new IndexTestPage(page);
       await page.goto('http://localhost:5173/');
 
     });
 
-    test('remove first item', async ({ page }) => {
-      
+    test('remove first item', async ({ indexTestPage }) => {
+
       // Arrange
-      const item0 = page.locator('.pItemHeader').nth(0)
-      const finalPrice = page.locator('.totalSumRight').nth(1)
+      const item0 = indexTestPage.item0
+      const finalPrice = indexTestPage.finalPrice
 
       // Accept
       await expect(item0).toBeVisible()
@@ -33,7 +33,7 @@ test.describe('Test on localhost', () => {
       await expect(finalPrice).toContainText('375 DKK')
 
       // Act
-      await page.getByRole('button', { name: 'Fjern' }).nth(0).click()
+      await indexTestPage.ClickButton('Fjern')
 
       //Accept
       await expect(item0).toContainText('De små synger')
@@ -41,81 +41,81 @@ test.describe('Test on localhost', () => {
 
     })
 
-    test('remove all items', async ({ page }) => {
+    test('remove all items', async ({ indexTestPage }) => {
 
       // Arrange
-      const item0 = page.locator('.pItemHeader').nth(0)
+      const item0 = indexTestPage.item0
 
       // Accept
       await expect(item0).toBeVisible()
 
       // Act
-      await page.getByRole('button', { name: 'Fjern' }).nth(0).click();
-      await page.getByRole('button', { name: 'Fjern' }).nth(0).click();
-      await page.getByRole('button', { name: 'Fjern' }).nth(0).click();
+      await indexTestPage.ClickButton('Fjern')
+      await indexTestPage.ClickButton('Fjern')
+      await indexTestPage.ClickButton('Fjern')
 
       // Accept
       await expect(item0).not.toBeVisible()
-      await expect(page.locator('.shopping-cart')).toContainText('Kurven er tom')
+      await expect(indexTestPage.shopping_cart).toContainText('Kurven er tom')
 
     })
 
-    test('buy more of same item', async ({ page }) => {
+    test('buy more of same item', async ({ indexTestPage }) => {
 
       // Arrange
-      const antal = page.getByRole('spinbutton').nth(0)
-      const finalPrice = page.locator('.totalSumRight').nth(1)
+      const item0Quantity = indexTestPage.item0Quantity
+      const finalPrice = indexTestPage.finalPrice
 
       // Accept
-      await expect(antal).toHaveAttribute('value', '2')
+      await expect(item0Quantity).toHaveAttribute('value', '2')
       await expect(finalPrice).toContainText('375 DKK')
 
       // Act
-      await antal.fill('1')
-      await page.keyboard.press('Tab'); // Does this so the container will opdate by leaving it
+      await item0Quantity.fill('1')
+      await indexTestPage.page.keyboard.press('Tab'); // Does this so the container will opdate by leaving it
 
       // Accept
       await expect(finalPrice).toContainText('315 DKK')
-      await expect(antal).toHaveAttribute('value', '1')
+      await expect(item0Quantity).toHaveAttribute('value', '1')
 
     })
 
-    test('Opgrade items', async ({ page }) => {
+    test('Opgrade items', async ({ indexTestPage }) => {
 
       // Accept
-      await expect(page.locator('.pItemHeader').nth(0)).toContainText('C-vitamin, 500mg, 250 stk')
-      await expect(page.locator('.pItemHeader').nth(1)).toContainText('De små synger')
-      await expect(page.locator('.pItemHeader').nth(2)).toContainText('Rørsukker, 1000g')
+      await expect(indexTestPage.item0).toContainText('C-vitamin, 500mg, 250 stk')
+      await expect(indexTestPage.item1).toContainText('De små synger')
+      await expect(indexTestPage.item2).toContainText('Rørsukker, 1000g')
 
-      await expect(page.locator('.pItemPrice').nth(0)).toContainText('225 DKK')
-      await expect(page.locator('.pItemPrice').nth(1)).toContainText('120 DKK')
-      await expect(page.locator('.pItemPrice').nth(2)).toContainText('80 DKK')
+      await expect(indexTestPage.item0Price).toContainText('225 DKK')
+      await expect(indexTestPage.item1Price).toContainText('120 DKK')
+      await expect(indexTestPage.item2Price).toContainText('80 DKK')
 
       // Arrange
-      await page.getByRole('button', { name: 'vælg' }).nth(0).click();
-      await page.getByRole('button', { name: 'vælg' }).nth(0).click();
-      await page.getByRole('button', { name: 'vælg' }).nth(0).click();
+      await indexTestPage.ClickButton('vælg')
+      await indexTestPage.ClickButton('vælg')
+      await indexTestPage.ClickButton('vælg')
 
       // Accept
-      await expect(page.locator('.pItemHeader').nth(0)).toContainText('C-vitamin Depot, 500mg, 250')
-      await expect(page.locator('.pItemHeader').nth(1)).toContainText('De små synger, indbundet')
-      await expect(page.locator('.pItemHeader').nth(2)).toContainText('Rørsukker, økologisk, 1000g')
+      await expect(indexTestPage.item0).toContainText('C-vitamin Depot, 500mg, 250')
+      await expect(indexTestPage.item1).toContainText('De små synger, indbundet')
+      await expect(indexTestPage.item2).toContainText('Rørsukker, økologisk, 1000g')
 
-      await expect(page.locator('.pItemPrice').nth(0)).toContainText('350 DKK')
-      await expect(page.locator('.pItemPrice').nth(1)).toContainText('180 DKK')
-      await expect(page.locator('.pItemPrice').nth(2)).toContainText('81 DKK')
+      await expect(indexTestPage.item0Price).toContainText('350 DKK')
+      await expect(indexTestPage.item1Price).toContainText('180 DKK')
+      await expect(indexTestPage.item2Price).toContainText('81 DKK')
     })
 
-    test('Go to form', async ({ page }) => {
+    test('Go to form', async ({ indexTestPage }) => {
 
       // Accept
-      await expect(page).toHaveURL('http://localhost:5173/');
+      await expect(indexTestPage.page).toHaveURL('http://localhost:5173/');
 
       // Arrange
-      await page.getByRole('button', { name: 'Betal' }).click();
+      await indexTestPage.ClickButton('Betal')
 
       // Accept
-      await expect(page).toHaveURL('http://localhost:5173/form');
+      await expect(indexTestPage.page).toHaveURL('http://localhost:5173/form');
     })
 
   })
@@ -198,7 +198,7 @@ test.describe('Test on localhost', () => {
     })
 
     test.skip('Test same billing adress', async ({ page }) => {
-     
+
       await page.getByRole('checkbox').click();
 
       // copy act from 'Write acceptable answers into to form'
