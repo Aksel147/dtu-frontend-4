@@ -4,28 +4,6 @@ import zipCodes from '../assets/postnumre.json';
 
 export default function Form() {
 	const [sameAsDeliveryAdress, setCheck] = useState(true);
-	const [state, setState] = useState({
-		deliveryCountry: '',
-		deliveryZipCode: '',
-		deliveryCity: '',
-		deliveryAddressLine1: '',
-		deliveryAddressLine2: '',
-		deliveryName: '',
-		deliveryPhone: '',
-		deliveryEmail: '',
-		deliveryCompanyName: '',
-		deliveryCompanyVAT: '',
-		billingCountry: '',
-		billingZipCode: '',
-		billingCity: '',
-		billingAddressLine1: '',
-		billingAddressLine2: '',
-		billingName: '',
-		billingPhone: '',
-		billingEmail: '',
-		billingCompanyName: '',
-		billingCompanyVAT: '',
-	});
 
   // Delivery information
   // Delivery address
@@ -86,48 +64,7 @@ export default function Form() {
   const [errorMessageDeliveryEmail, setErrorMessageDeliveryEmail] = useState('');
   const [errorMessageBillingEmail, setErrorMessageBillingEmail] = useState('');
 
-  /*
-  const [state, setState] = useState({
-    deliveryCountry: "",
-    deliveryZipCode: "",
-    deliveryCity: "",
-    deliveryAddressLine1: "",
-    deliveryAddressLine2: "",
-    deliveryName: "",
-    deliveryPhone: "",
-    deliveryEmail: "",
-    deliveryCompanyName: "",
-    deliveryVAT: "",
-    billingCountry: "",
-    billingZipCode: "",
-    billingCity: "",
-    billingAddressLine1: "",
-    billingAddressLine2: "",
-    billingName: "",
-    billingPhone: "",
-    billingEmail: "",
-    billingCompanyName: "",
-    billingVAT: "",
-  },);
-  */ 
-
-	const onChange = (e: { target: { name: any; value: any } }) => {
-		const { name, value } = e.target;
-		setState((prevState) => ({
-			...prevState,
-			[name]: value,
-		}));
-	};
-  /*
-  const onChange = (e: { target: { name: any; value: any } }) => {
-    const { name, value } = e.target;
-    setState((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
-  */
-
+  
   var form = document.querySelector('form')
 
   const validateDeliveryZipCode = (e: { target: { name: string; value: string } }) => {
@@ -197,7 +134,7 @@ export default function Form() {
     }
   }
 
-  function validateDeliveryFirstName(firstName: String) {
+  function validateDeliveryFirstName(firstName: string) {
     if (firstName.length < 1) {
       setErrorMessageDeliveryFirstName('Indtast fornavn');
       return false;
@@ -207,7 +144,7 @@ export default function Form() {
     }
   }
 
-  function validateDeliveryLastName(lastName: String) {
+  function validateDeliveryLastName(lastName: string) {
     if (lastName.length < 1) {
       setErrorMessageDeliveryLastName('Indtast efternavn');
       return false;
@@ -217,8 +154,10 @@ export default function Form() {
     }
   }
 
-  function validateDeliveryEmail(email: String) {
-    if (email.length < 1) {
+  function validateDeliveryEmail(email: string) {
+    const regex = /^\S+@\S+\.\S+$/;
+
+    if (!regex.test(email)) {
       setErrorMessageDeliveryEmail('Indtast email');
       return false;
     } else {
@@ -302,11 +241,8 @@ export default function Form() {
       setErrorMessageDeliveryVAT('');
     }
 
-    if (deliveryAddressLine1 === '') {
-      setErrorMessageDeliveryAddress('Indtast en adresse');
+    if (validateDeliveryAddress(deliveryAddressLine1) === false) {
       event.preventDefault();
-    } else {
-      setErrorMessageDeliveryAddress('');
     }
 
     if (validateDeliveryFirstName(deliveryFirstName) === false) {
@@ -317,11 +253,8 @@ export default function Form() {
       event.preventDefault();
     }
 
-    if (deliveryEmail === '') {
-      setErrorMessageDeliveryEmail('Indtast en email');
+    if (validateDeliveryEmail(deliveryEmail) === false) {
       event.preventDefault();
-    } else {
-      setErrorMessageDeliveryEmail('');
     }
 
     if (billingAddressLine1 === '') {
@@ -345,21 +278,9 @@ export default function Form() {
       setErrorMessageBillingEmail('');
     }
 
-    // this.state.inputs[idx] = {
-    //   ...this.state.inputs[idx],
-    //    value: target.value,
-    //   error
-    // }
-
-    // this.setState({
-    //   inputs: [...this.state.inputs]
-    // });
   }
 
-  //console.log(billingCountry);
-
   return (
-    // <div className={`error-message ${errorMessage ? 'show' : 'hide'}`}>{errorMessage}
     <div className="formBody">
       <div className="form">
         <form onSubmit={handleSubmit}>
@@ -382,8 +303,7 @@ export default function Form() {
           </label>
 
           <div className="form-row">
-
-          <div>
+            <div>
           <label>
             Fornavn<span title="Påkrævet felt">*</span>
             <input
@@ -419,24 +339,7 @@ export default function Form() {
           </div>
 
           </div>
-
-          
-          {/* <select
-            className="input-font"
-            id="deliveryZipCode"
-            name="deliveryZipCode"
-            placeholder="Postnr"
-            autoComplete="{false}"
-          >
-            {zipCodes.map((zipCode) => (
-              <option value={zipCode.nr} key={zipCode.nr}>
-                {zipCode.nr}
-              </option>
-            ))}
-          </select> */}
-
         
-          
           <label>
             Adresselinje 1<span title="Påkrævet felt">*</span>
           <input
@@ -514,12 +417,13 @@ export default function Form() {
             Email<span title="Påkrævet felt">*</span>
             <input
               className="input-font"
-              type="email"
+              type="text"
               name="deliveryEmail"
               placeholder="Indtast email"
               value={deliveryEmail || ''}
               onChange={(e) => setDeliveryEmail(e.target.value)}
               onBlur={(e) => validateDeliveryEmail(e.target.value)}
+              
             />
           </label>
             <div className={`error-message ${errorMessageDeliveryEmail ? 'show' : 'hide'}`}>{errorMessageDeliveryEmail}</div>
@@ -654,6 +558,7 @@ export default function Form() {
                   placeholder="Indtast email"
                   value={billingEmail || ''}
                   onChange={(e) => setBillingEmail(e.target.value)}
+                  
                 />
               </label>
                 <div className={`error-message ${errorMessageBillingEmail ? 'show' : 'hide'}`}>{errorMessageBillingEmail}</div>
