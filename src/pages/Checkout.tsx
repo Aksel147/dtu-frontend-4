@@ -9,7 +9,7 @@ import './Checkout.css';
 export default function Checkout() {
 	const navigate = useNavigate();
 
-	function handleClick(event: any) {
+	function handleClick() {
 		navigate('form');
 	}
 
