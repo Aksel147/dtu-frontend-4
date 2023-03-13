@@ -1,10 +1,16 @@
 import Item from '../models/Item';
 import './CartItem.css';
 
-export default function CartItem(props: { item: Item, setQuantity: Function, remove: Function, upsell: Function }) {
-    let totalPrice = props.item.product.price * props.item.quantity;
+export default function CartItem(props: {
+    item: Item;
+    setQuantity: (id: string, val: number) => void;
+    remove: (id: string) => void;
+    upsell: (id: string) => void;
+}) {
+    let subtotalPrice = props.item.product.price * props.item.quantity;
+    let totalPrice = subtotalPrice;
     if (props.item.quantity >= props.item.product.rebateQuantity) {
-        totalPrice = totalPrice * (1 - props.item.product.rebatePercent / 100);
+        totalPrice = subtotalPrice * (1 - props.item.product.rebatePercent / 100);
     }
 
     return (
@@ -15,13 +21,22 @@ export default function CartItem(props: { item: Item, setQuantity: Function, rem
                         alt={props.item.product.name} width="120px" height="120px" className="image2" />
                     <div className="itemText">
                         <p className="pItemHeader">{props.item.product.name}</p>
-                        <p className="pItemPrice">{totalPrice.toLocaleString('da-DK')} {props.item.product.currency}</p>
+                        <p className="pItemPrice">
+                            <span style={{ textDecoration: subtotalPrice !== totalPrice ? 'line-through' : '' }}>
+                                {subtotalPrice.toLocaleString('da-DK')} {props.item.product.currency}
+                            </span>
+                            {subtotalPrice !== totalPrice &&
+                                <span className='reducedPrice'>
+                                    {totalPrice.toLocaleString('da-DK')} {props.item.product.currency}
+                                </span>
+                            }
+                        </p>
                     </div>
                 </div>
                 <div className='right-container'>
                     <div className='itemText'>
                         <button onClick={() => { props.remove(props.item.product.id) }}>
-                            <img src="https://cdn-icons-png.flaticon.com/512/3917/3917378.png" alt="Skraldespand" width="23px" height="25px"/>
+                            <img src="https://cdn-icons-png.flaticon.com/512/3917/3917378.png" alt="Skraldespand" width="23px" height="25px" />
                         </button>
                         {props.item.quantity < props.item.product.rebateQuantity &&
                             <div className='quantity-nudge'>
@@ -31,10 +46,10 @@ export default function CartItem(props: { item: Item, setQuantity: Function, rem
                         }
                         <div className='amount'>
                             <label>Antal</label>
-                            <input type="number" min="1" max="100" value={props.item.quantity} onChange={(e) => { 
-                                if((parseInt(e.target.value) > 0 && parseInt(e.target.value) < 100) || e.target.value === "")
-                                props.setQuantity(props.item.product.id, e.target.value) 
-                                }} />
+                            <input type="number" min="1" max="100" value={props.item.quantity} onChange={(e) => {
+                                if ((parseInt(e.target.value) > 0 && parseInt(e.target.value) < 100) || e.target.value === "")
+                                    props.setQuantity(props.item.product.id, parseInt(e.target.value))
+                            }} />
                         </div>
                     </div>
                 </div>

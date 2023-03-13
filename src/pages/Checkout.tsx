@@ -32,16 +32,13 @@ export default function Checkout() {
 			} as Product,
 		}))
 	);
-	let totalCartPrice = shoppingCart.reduce(
-		(a, v) => (a = reduceCartPrice(a, v)),
+	let subtotalCartPrice = shoppingCart.reduce(
+		(a, v) => (a = reduceSubtotal(a, v)),
 		0
 	);
 
-	function reduceCartPrice(a: number, v: Item): number {
+	function reduceSubtotal(a: number, v: Item): number {
 		let totalPrice = v.product.price * v.quantity;
-		if (v.quantity >= v.product.rebateQuantity) {
-			totalPrice = totalPrice * (1 - v.product.rebatePercent / 100);
-		}
 		return a + totalPrice;
 	}
 
@@ -62,28 +59,18 @@ export default function Checkout() {
 		}
 		setShoppingCart(newCart);
 	}
-	function isRebate() {
-		let total = shoppingCart.reduce(
-			(a, v) => (a = a + v.quantity * v.product?.price),
-			0
-		);
-
-		if (total > 300) {
-			return true;
-		} else {
-			return false;
-		}
-	}
 	function rebate() {
-		let total = shoppingCart.reduce(
-			(a, v) => (a = a + v.quantity * v.product?.price),
-			0
-		);
-
-		if (isRebate()) {
-			return total * 0.1;
+		let quantityRebate = 0;
+		shoppingCart.forEach((item: Item) => {
+			if (item.quantity >= item.product.rebateQuantity) {
+				quantityRebate += item.product.price * item.quantity * item.product.rebatePercent / 100;
+			}
+		});
+		const totalCartPrice = subtotalCartPrice - quantityRebate;
+		if (totalCartPrice > 300) {
+			return quantityRebate + totalCartPrice * 0.1;
 		} else {
-			return 0;
+			return quantityRebate;
 		}
 	}
 
@@ -152,7 +139,7 @@ export default function Checkout() {
 					<div className="placeOnLine">
 						<p className="totalSum">Subtotal:</p>
 						<p className="totalSumRight">
-							{totalCartPrice.toLocaleString('da-DK')} DKK
+							{subtotalCartPrice.toLocaleString('da-DK')} DKK
 						</p>
 					</div>
 					<div className="placeOnLine">
@@ -163,7 +150,7 @@ export default function Checkout() {
 					<div className="placeOnLine">
 						<p className="totalSum bold">Pris i alt (inkl. moms):</p>
 						<p className="totalSumRight bold">
-							{(totalCartPrice - rebate()).toLocaleString('da-DK')} DKK
+							{(subtotalCartPrice - rebate()).toLocaleString('da-DK')} DKK
 						</p>
 					</div>
 				</div>
