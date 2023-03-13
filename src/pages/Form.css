@@ -18,6 +18,9 @@ select {
 	width: 90%;
 }
 
+h3 {
+    font-weight: 700;
+    color: #333;
 h1 {
 	font-weight: 700;
 	color: #333;
