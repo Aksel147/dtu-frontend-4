@@ -10,9 +10,12 @@ export default function Form() {
   const [deliveryCity,setDeliveryCity] = useState('');
   const [deliveryAddressLine1,setDeliveryAddressLine1] = useState('');
   const [deliveryAddressLine2,setDeliveryAddressLine2] = useState('');
-  const [deliveryName,setDeliveryName] = useState('');
+
+  const [deliveryFirstName,setDeliveryFirstName] = useState('');
+  const [deliveryLastName,setDeliveryLastName] = useState('');
   const [deliveryPhone,setDeliveryPhone] = useState('');
   const [deliveryEmail,setDeliveryEmail] = useState('');
+  
   const [deliveryCompanyName,setDeliveryCompanyName] = useState('');
   const [deliveryVAT,setDeliveryVAT] = useState('');
 
@@ -160,7 +163,7 @@ export default function Form() {
       setBillingCity(deliveryCity);
       setBillingAddressLine1(deliveryAddressLine1);
       setBillingAddressLine2(deliveryAddressLine2);
-      setBillingName(deliveryName);
+      setBillingName(deliveryFirstName);
       setBillingPhone(deliveryPhone);
       setBillingEmail(deliveryEmail);
       setBillingCompanyName(deliveryCompanyName);
@@ -218,7 +221,7 @@ export default function Form() {
       setErrorMessageDeliveryAddress('');
     }
 
-    if (deliveryName === '') {
+    if (deliveryFirstName === '') {
       setErrorMessageDeliveryName('Indtast et navn');
       event.preventDefault();
     } else {
@@ -297,10 +300,10 @@ export default function Form() {
             <input
               className="input-font"
               type="text"
-              name="Name"
-              placeholder="Indtast navn"
-              value={deliveryName || ''}
-              onChange={(e) => setDeliveryName(e.target.value)}
+              name="First Name"
+              placeholder="Indtast fornavn"
+              value={deliveryFirstName || ''}
+              onChange={(e) => setDeliveryFirstName(e.target.value)}
             />
           </label>
             <div className={`error-message ${errorMessageDeliveryName ? 'show' : 'hide'}`}>{errorMessageDeliveryName}</div>
@@ -313,10 +316,11 @@ export default function Form() {
             <input
               className="input-font"
               type="text"
-              name="Name"
-              placeholder="Indtast navn"
-              value={deliveryName || ''}
-              onChange={(e) => setDeliveryName(e.target.value)}
+              name="Last Name"
+              placeholder="Indtast efternavn"
+              value={deliveryLastName || ''}
+              onChange={(e) => setDeliveryLastName(e.target.value)}
+              onBlur={(e) => validateLastName(e)}
             />
           </label>
             <div className={`error-message ${errorMessageDeliveryName ? 'show' : 'hide'}`}>{errorMessageDeliveryName}</div>

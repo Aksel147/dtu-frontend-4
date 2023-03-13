@@ -59,8 +59,10 @@ label {
     font-weight: bold;
     color: black;
     display: block;
-    /* text-align: left;
-    text-indent: 5px; */
+    text-align: left;
+    text-indent: 5px;
+    margin-bottom: 0px;
+    margin-top: 10px;
 }
 
 label {
@@ -108,7 +110,11 @@ input[type='email'] {
 }
 
 .error-message {
-    color: red;}
+    color: red;
+    font-size: small;
+    text-align: start;
+    margin-left: 2px;
+}
 
 input.submit {
 	width: 30%;
