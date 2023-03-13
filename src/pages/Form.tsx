@@ -149,7 +149,7 @@ export default function Form() {
     }
   }
 
-  function handleSubmit(event: any) {
+  function handleSubmit(event: any) { // TODO: specify event type
     const target = event.target;
     const name = target.name;
     let error = '';
