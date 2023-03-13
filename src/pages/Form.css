@@ -7,9 +7,23 @@
     justify-content: center;
     padding-block: 5%;
     padding-inline: 5vw;
+    font-family: Helvetica;
+    color: #333;
+    width: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-block: 5%;
+    padding-inline: 5vw;
 }
 
 select {
+    display: block;
+    margin: 0 auto 10px auto;
+    border: 1px solid black;
+    padding: 10px 5px;
+    font-weight: bold;
+    width: 100%;
     display: block;
     margin: 0 auto 10px auto;
     border: 1px solid black;
@@ -30,6 +44,20 @@ form {
     border: 1px solid black;
     width: 100%;
     padding: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    width: 100%;
+    padding: 20px;
+}
+
+.form-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    gap: 10px;
 }
 
 .form-row {
@@ -65,12 +93,20 @@ label {
     margin-top: 10px;
 }
 
+.read-only {
+    outline: none;
+    cursor: default;
+    background-color: #eeeeee;
+}
+
 label {
     font-weight: bold;
     color: black;
     display: block;
-    /* text-align: left;
-    text-indent: 5px; */
+    text-align: left;
+    text-indent: 5px;
+    margin-bottom: 0px;
+    margin-top: 10px;
 }
 
 .input-font {

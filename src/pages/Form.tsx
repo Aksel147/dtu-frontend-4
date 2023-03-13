@@ -73,6 +73,82 @@ export default function Form() {
   },);
   */ 
 
+
+  const [deliveryCountry,setDeliveryCountry] = useState('');
+  const [deliveryZipCode,setDeliveryZipCode] = useState('');
+  const [deliveryCity,setDeliveryCity] = useState('');
+  const [deliveryAddressLine1,setDeliveryAddressLine1] = useState('');
+  const [deliveryAddressLine2,setDeliveryAddressLine2] = useState('');
+
+  const [deliveryFirstName,setDeliveryFirstName] = useState('');
+  const [deliveryLastName,setDeliveryLastName] = useState('');
+  const [deliveryPhone,setDeliveryPhone] = useState('');
+  const [deliveryEmail,setDeliveryEmail] = useState('');
+  
+  const [deliveryCompanyName,setDeliveryCompanyName] = useState('');
+  const [deliveryVAT,setDeliveryVAT] = useState('');
+
+  const [billingCountry,setBillingCountry] = useState('');
+  const [billingZipCode,setBillingZipCode] = useState('');
+  const [billingCity,setBillingCity] = useState('');
+  const [billingAddressLine1,setBillingAddressLine1] = useState('');
+  const [billingAddressLine2,setBillingAddressLine2] = useState('');
+  const [billingName,setBillingName] = useState('');
+  const [billingPhone,setBillingPhone] = useState('');
+  const [billingEmail,setBillingEmail] = useState('');
+  const [billingCompanyName,setBillingCompanyName] = useState('');
+  const [billingVAT,setBillingVAT] = useState('');
+  
+  const [isZipCodeValid,setIsZipCodeValid] = useState(true);
+  const [isDigitsValidPhone,setIsDigitsValidPhone] = useState(true);
+  const [isDigitsValidDeliveryVAT,setIsDigitsValidDeliveryVAT] = useState(true);
+  const [isDigitsValidBillingVAT,setIsDigitsValidBillingVAT] = useState(true);
+
+  const [errorMessageDeliveryZipCode, setErrorMessageDeliveryZipCode] = useState('');
+  const [errorMessageBillingZipCode, setErrorMessageBillingZipCode] = useState('');
+  const [errorMessageDeliveryPhone, setErrorMessageDeliveryPhone] = useState('');
+  const [errorMessageBillingPhone, setErrorMessageBillingPhone] = useState('');
+  const [errorMessageBillingVAT, setErrorMessageBillingVAT] = useState('');
+  const [errorMessageDeliveryVAT, setErrorMessageDeliveryVAT] = useState('');
+  const [errorMessageDeliveryAddress, setErrorMessageDeliveryAddress] = useState('');
+  const [errorMessageBillingAddress, setErrorMessageBillingAddress] = useState('');
+  const [errorMessageDeliveryName, setErrorMessageDeliveryName] = useState('');
+  const [errorMessageBillingName, setErrorMessageBillingName] = useState('');
+  const [errorMessageDeliveryEmail, setErrorMessageDeliveryEmail] = useState('');
+  const [errorMessageBillingEmail, setErrorMessageBillingEmail] = useState('');
+
+  /*
+  const [state, setState] = useState({
+    deliveryCountry: "",
+    deliveryZipCode: "",
+    deliveryCity: "",
+    deliveryAddressLine1: "",
+    deliveryAddressLine2: "",
+    deliveryName: "",
+    deliveryPhone: "",
+    deliveryEmail: "",
+    deliveryCompanyName: "",
+    deliveryVAT: "",
+    billingCountry: "",
+    billingZipCode: "",
+    billingCity: "",
+    billingAddressLine1: "",
+    billingAddressLine2: "",
+    billingName: "",
+    billingPhone: "",
+    billingEmail: "",
+    billingCompanyName: "",
+    billingVAT: "",
+  },);
+  */ 
+
+	const onChange = (e: { target: { name: any; value: any } }) => {
+		const { name, value } = e.target;
+		setState((prevState) => ({
+			...prevState,
+			[name]: value,
+		}));
+	};
   /*
   const onChange = (e: { target: { name: any; value: any } }) => {
     const { name, value } = e.target;
@@ -320,7 +396,7 @@ export default function Form() {
               placeholder="Indtast efternavn"
               value={deliveryLastName || ''}
               onChange={(e) => setDeliveryLastName(e.target.value)}
-              onBlur={(e) => validateLastName(e)}
+              // onBlur={(e) => validateLastName(e)}
             />
           </label>
             <div className={`error-message ${errorMessageDeliveryName ? 'show' : 'hide'}`}>{errorMessageDeliveryName}</div>

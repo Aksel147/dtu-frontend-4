@@ -1,11 +1,11 @@
-import './CartItem.css'
-import Item from '../models/Item'
+import Item from '../models/Item';
+import './CartItem.css';
 
 export default function CartItem(props: {
-    item: Item,
-    setQuantity: (id: string, val: number) => void,
-    remove: (id: string) => void,
-    upsell: (id: string) => void
+	item: Item;
+	setQuantity: (id: string, val: number) => void;
+	remove: (id: string) => void;
+	upsell: (id: string) => void;
 }) {
     let subtotalPrice = props.item.product.price * props.item.quantity;
     let totalPrice = subtotalPrice;
