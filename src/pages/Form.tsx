@@ -38,20 +38,34 @@ export default function Form() {
     <div className="formBody">
       <div className="form">
         <form>
-
-          <h1>Leveringsadresse</h1>
-          <select
+          <h3>Faktureringsoplysninger</h3>
+          <input
             className="input-font"
-            id="deliveryCountry"
-            name="deliveryCountry"
-            placeholder="Land"
+            type="text"
+            name="deliveryName"
+            placeholder="Navn"
             autoComplete="{false}"
+            required
             onChange={onChange}
-          >
-            <option value="Denmark" selected>
-              Danmark
-            </option>
-          </select>
+          />
+          <input
+            className="input-font"
+            type="text"
+            name="deliveryPhone"
+            placeholder="Telefon"
+            autoComplete="{false}"
+            required
+            onChange={onChange}
+          />
+          <input
+            className="input-font"
+            type="email"
+            name="deliveryEmail"
+            placeholder="Email"
+            autoComplete="{false}"
+            required
+            onChange={onChange}
+          />
           <input
             className="input-font"
             type="text"
@@ -90,33 +104,6 @@ export default function Form() {
           <input
             className="input-font"
             type="text"
-            name="deliveryName"
-            placeholder="Navn"
-            autoComplete="{false}"
-            required
-            onChange={onChange}
-          />
-          <input
-            className="input-font"
-            type="text"
-            name="deliveryPhone"
-            placeholder="Telefon"
-            autoComplete="{false}"
-            required
-            onChange={onChange}
-          />
-          <input
-            className="input-font"
-            type="email"
-            name="deliveryEmail"
-            placeholder="Email"
-            autoComplete="{false}"
-            required
-            onChange={onChange}
-          />
-          <input
-            className="input-font"
-            type="text"
             name="deliveryCompanyName"
             placeholder="Firmanavn"
             autoComplete="{false}"
@@ -130,8 +117,20 @@ export default function Form() {
             autoComplete="{false}"
             onChange={onChange}
           />
+          <select
+            className="input-font"
+            id="deliveryCountry"
+            name="deliveryCountry"
+            placeholder="Land"
+            autoComplete="{false}"
+            onChange={onChange}
+          >
+            <option value="Denmark" selected>
+              Danmark
+            </option>
+          </select>
           <br></br>
-          <h1>Betalingsadresse</h1>
+          <h3>Betalingsadresse</h3>
           <div className="check">
             <label htmlFor="checkbox">Samme som leveringsadresse</label>
             <input
