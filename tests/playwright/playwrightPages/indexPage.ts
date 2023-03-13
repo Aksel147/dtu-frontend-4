@@ -1,5 +1,4 @@
 import { Locator, Page, expect } from "@playwright/test";
-import { L } from "vitest/dist/types-7cd96283";
 
 export class IndexTestPage {
     readonly page: Page;
