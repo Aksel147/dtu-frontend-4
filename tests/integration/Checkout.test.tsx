@@ -13,7 +13,7 @@ it('check rebate on item: Rørsukker, 1000g', async () => {
 	await userEvent.tripleClick(quantityField);
 	await userEvent.keyboard('4');
 
-	expect(price).toHaveTextContent('120 DKK');
+	expect(price.nextSibling).toHaveTextContent('120 DKK');
 });
 
 it('check upsell option on item: Rørsukker, 1000g ', async () => {
