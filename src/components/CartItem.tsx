@@ -12,7 +12,7 @@ export default function CartItem(props: { item: Item, setQuantity: Function, rem
             <div className="item">
                 <div className='left-container'>
                     <img src="https://images.bolia.com/cdn-cgi/image/background=%23f5f5f5,fit=pad,width=540,format=auto,height=405,quality=81/products/02-335-01_00004_angle.webp?v=1"
-                        width="120px" height="120px" className="image2" />
+                        alt={props.item.product.name} width="120px" height="120px" className="image2" />
                     <div className="itemText">
                         <p className="pItemHeader">{props.item.product.name}</p>
                         <p className="pItemPrice">{totalPrice.toLocaleString('da-DK')} {props.item.product.currency}</p>
@@ -21,7 +21,7 @@ export default function CartItem(props: { item: Item, setQuantity: Function, rem
                 <div className='right-container'>
                     <div className='itemText'>
                         <button onClick={() => { props.remove(props.item.product.id) }}>
-                            <img src="https://cdn-icons-png.flaticon.com/512/3917/3917378.png" alt={props.item.product.name} width="23px" height="25px"/>
+                            <img src="https://cdn-icons-png.flaticon.com/512/3917/3917378.png" width="23px" height="25px"/>
                         </button>
                         {props.item.quantity < props.item.product.rebateQuantity &&
                             <div className='quantity-nudge'>
