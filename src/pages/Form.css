@@ -134,6 +134,10 @@ input.submit {
 input:invalid {
     border: 1px solid rgb(0, 0, 0);
 } 
+
+.no-margin {
+    margin: 0px;
+}
   
 /* input:focus:invalid {
     box-shadow: none;
