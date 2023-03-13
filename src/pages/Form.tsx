@@ -179,10 +179,7 @@ export default function Form() {
 
 
   // On submit press
-  function handleSubmit(event: any) { // TODO: specify event type
-    const target = event.target;
-    const name = target.name;
-    let error = '';
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
 
     if (sameAsDeliveryAdress) {
       setBillingCountry(deliveryCountry);
@@ -198,7 +195,6 @@ export default function Form() {
     }
 
     if (deliveryPhone.length < 8) {
-      event.preventDefault();
       setErrorMessageDeliveryPhone('Indtast 8 cifre');
       event.preventDefault();
     } else {
@@ -206,7 +202,6 @@ export default function Form() {
     }
 
     if (billingPhone.length < 8) {
-      event.preventDefault();
       setErrorMessageBillingPhone('Indtast 8 cifre');
       event.preventDefault();
     } else {
@@ -390,7 +385,6 @@ export default function Form() {
               placeholder="Hentes fra postnummer"
               value={deliveryCity}
               readOnly
-              onSubmit={handleSubmit}
             />
           </label>
           </div>
