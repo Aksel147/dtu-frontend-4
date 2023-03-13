@@ -1,5 +1,15 @@
 import { test, expect } from '@playwright/test';
 //import { IndexTestPage } from "./playwrightPages/indexTest";
+// import { expect, test as base } from '@playwright/test';
+
+/*
+// Extend test with IndexTestPage fixture
+const test = base.extend<{indexTestPage: IndexTestPage}>({
+    indexTestPage: async ({ page}, use) => {
+      let indexTestPage = new IndexTestPage(page)
+    }
+})
+ */
 
 test.describe('Test on localhost', () => {
 
@@ -11,7 +21,7 @@ test.describe('Test on localhost', () => {
 
     });
 
-    test.only('remove first item', async ({ page }) => {
+    test('remove first item', async ({ page }) => {
       
       // Arrange
       const item0 = page.locator('.pItemHeader').nth(0)
@@ -186,6 +196,15 @@ test.describe('Test on localhost', () => {
       expect(Firmanavn).toContain('xXx_AssKicker_xXx')
       expect(VAT_nummer).toContain('DK 87654321')
     })
+
+    test.skip('Test same billing adress', async ({ page }) => {
+     
+      await page.getByRole('checkbox').click();
+
+      // copy act from 'Write acceptable answers into to form'
+
+    })
+
 
   })
 
