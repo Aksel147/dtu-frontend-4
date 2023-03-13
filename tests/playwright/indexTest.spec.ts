@@ -33,7 +33,7 @@ test.describe('Test on localhost', () => {
       await expect(finalPrice).toContainText('375 DKK')
 
       // Act
-      await indexTestPage.ClickButton('Fjern')
+      await indexTestPage.ClickButton('Skraldespand')
 
       //Accept
       await expect(item0).toContainText('De små synger')
@@ -50,9 +50,9 @@ test.describe('Test on localhost', () => {
       await expect(item0).toBeVisible()
 
       // Act
-      await indexTestPage.ClickButton('Fjern')
-      await indexTestPage.ClickButton('Fjern')
-      await indexTestPage.ClickButton('Fjern')
+      await indexTestPage.ClickButton('Skraldespand')
+      await indexTestPage.ClickButton('Skraldespand')
+      await indexTestPage.ClickButton('Skraldespand')
 
       // Accept
       await expect(item0).not.toBeVisible()
