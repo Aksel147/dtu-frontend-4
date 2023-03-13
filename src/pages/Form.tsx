@@ -293,7 +293,7 @@ export default function Form() {
 
           <div>
           <label>
-            Fornavn*
+            Fornavn<span title="Påkrævet felt">*</span>
             <input
               className="input-font"
               type="text"
@@ -309,7 +309,7 @@ export default function Form() {
 
           <div>
             <label>
-            Efternavn*
+            Efternavn<span title="Påkrævet felt">*</span>
             <input
               className="input-font"
               type="text"
@@ -343,7 +343,7 @@ export default function Form() {
         
           
           <label>
-            Adresselinje 1*
+            Adresselinje 1<span title="Påkrævet felt">*</span>
           <input
             className="input-font"
             type="text"
@@ -370,7 +370,7 @@ export default function Form() {
           <div className="form-row">
           <div>
             <label>
-              Postnummer*
+              Postnummer<span title="Påkrævet felt">*</span>
               <input
                 className={isZipCodeValid ? 'input-font' : 'error-control'}
                 type="text"
@@ -402,7 +402,7 @@ export default function Form() {
           
           
           <label>
-            Telefon*
+            Telefon<span title="Påkrævet felt">*</span>
             <input
               className={isDigitsValidPhone ? 'input-font' : 'error-control'}
               type="text"
@@ -415,7 +415,7 @@ export default function Form() {
           </label>
             <div className={`error-message ${errorMessageDeliveryPhone ? 'show' : 'hide'}`}>{errorMessageDeliveryPhone}</div>
           <label>
-            Email*
+            Email<span title="Påkrævet felt">*</span>
             <input
               className="input-font"
               type="email"
