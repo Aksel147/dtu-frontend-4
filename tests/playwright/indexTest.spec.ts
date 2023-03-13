@@ -7,7 +7,7 @@ import { expect, test as base } from '@playwright/test';
 const test = base.extend<{ indexTestPage: IndexTestPage }>({
   indexTestPage: async ({ page }, use) => {
     const indexTestPage = new IndexTestPage(page)
-    use(indexTestPage)
+    await use(indexTestPage)
   }
 })
 
