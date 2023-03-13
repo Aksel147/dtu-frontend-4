@@ -31,8 +31,7 @@ export default function CartItem(props: { item: Item, setQuantity: Function, rem
                         }
                         <div className='amount'>
                             <label>Antal</label>
-                            <input type="number" min="1" max="100" value={props.item.quantity} onChange={(e) => { 
-                                if((parseInt(e.target.value) > 0 && parseInt(e.target.value) < 100) || e.target.value === "")
+                            <input type="number" min="1" max="100" value={props.item.quantity} onChange={(e) => {
                                 props.setQuantity(props.item.product.id, e.target.value) 
                                 }} />
                         </div>
