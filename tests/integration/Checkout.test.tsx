@@ -3,11 +3,6 @@ import userEvent from '@testing-library/user-event';
 import { BrowserRouter } from 'react-router-dom';
 import { expect, it } from 'vitest';
 import App from '../../src/App';
-/*
-beforeEach(() => {
-    // Render Checkout page
-	render(<Checkout />);
-})*/
 
 it('check rebate on item: Rørsukker, 1000g', async () => {
 	render(<App />, { wrapper: BrowserRouter });
