@@ -30,6 +30,15 @@ form {
     border: 1px solid black;
     width: 100%;
     padding: 20px;
+    display: block;
+}
+
+.form-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    gap: 10px;
 }
 
 .form-row {

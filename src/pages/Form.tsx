@@ -424,6 +424,38 @@ export default function Form() {
           {/* <select
             className="input-font"
             id="deliveryZipCode"
+        <form>
+          <h3>Faktureringsoplysninger</h3>
+          <input
+            className="input-font"
+            type="text"
+            name="deliveryName"
+            placeholder="Navn"
+            autoComplete="{false}"
+            required
+            onChange={onChange}
+          />
+          <input
+            className="input-font"
+            type="text"
+            name="deliveryPhone"
+            placeholder="Telefon"
+            autoComplete="{false}"
+            required
+            onChange={onChange}
+          />
+          <input
+            className="input-font"
+            type="email"
+            name="deliveryEmail"
+            placeholder="Email"
+            autoComplete="{false}"
+            required
+            onChange={onChange}
+          />
+          <input
+            className="input-font"
+            type="text"
             name="deliveryZipCode"
             placeholder="Postnr"
             autoComplete="{false}"
@@ -548,7 +580,7 @@ export default function Form() {
           </label>
           <div className={`error-message ${errorMessageDeliveryVAT ? 'show' : 'hide'}`}>{errorMessageDeliveryVAT}</div>
           <br></br>
-          <h1>Betalingsadresse</h1>
+          <h3>Betalingsadresse</h3>
           <div className="check">
             <label className="no-margin" htmlFor="checkbox">Samme som leveringsadresse</label>
             <input
