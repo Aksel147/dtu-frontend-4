@@ -1,7 +1,7 @@
 .formBody {
     font-family: Helvetica;
     color: #333;
-    width: 99vw;
+    width: 100;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -15,64 +15,145 @@ select {
     border: 1px solid black;
     padding: 10px 5px;
     font-weight: bold;
-    width: 90%;
+    width: 100%;
 }
 
 h1 {
-    font-weight: 700;
-    color: #333;
+	font-weight: 700;
+	color: #333;
 }
 
 form {
     text-align: center;
+    display: flex;
+    flex-direction: column;
     border: 1px solid black;
     width: 100%;
     padding: 20px;
+    display: block;
+}
+
+.form-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    gap: 10px;
+}
+
+.form-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    gap: 10px;
 }
 
 form input {
-    display: block;
-    margin: 0 auto 10px auto;
-    border: 1px solid black;
-    padding: 10px;
+	display: block;
+	margin: 0 auto 10px auto;
+	border: 1px solid black;
+	padding: 10px;
+	font-weight: bold;
+	width: 90%;
+}
+
+.read-only {
+    outline: none;
+    cursor: default;
+    background-color: #eeeeee;
+}
+
+label {
     font-weight: bold;
-    width: 90%;
+    color: black;
+    display: block;
+    text-align: left;
+    text-indent: 5px;
+    margin-bottom: 0px;
+    margin-top: 10px;
+}
+
+.read-only {
+    outline: none;
+    cursor: default;
+    background-color: #eeeeee;
+}
+
+label {
+    font-weight: bold;
+    color: black;
+    display: block;
+    text-align: left;
+    text-indent: 5px;
+    margin-bottom: 0px;
+    margin-top: 10px;
 }
 
 .input-font {
-    font-weight: bold;
-    color: black;
+	font-weight: bold;
+	color: black;
 }
 
 .check {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 10px;
 }
 
 input[type='checkbox'] {
     color: #333;
     margin: 0;
     margin-left: 10px;
-    width: 10%;
+    width: 20%;
     cursor: pointer;
 }
 
+input[type='text'] {
+    width: 100%;
+    margin-left: 100px;
+    margin: 0px;
+}
 
+input[type='email'] {
+    width: 100%;
+    margin-left: 100px;
+    margin: 0px;
+}
+
+.error-control {
+    border: 1px solid red
+}
+
+.error-message {
+    color: red;
+    font-size: small;
+    text-align: start;
+    margin-left: 2px;
+}
 
 input.submit {
-    width: 30%;
-    background-color: black;
-    color: white;
-    margin-top: 20px;
+	width: 30%;
+	background-color: black;
+	color: white;
+	margin-top: 20px;
 }
 
 input:invalid {
-    /*box-shadow: 0 0 5px 1px red;*/
-    border: 1px solid red;
-  }
+    border: 1px solid rgb(0, 0, 0);
+} 
+
+.no-margin {
+    margin: 0px;
+}
   
-  input:focus:invalid {
+/* input:focus:invalid {
     box-shadow: none;
-  }
+    border: 1px solid red;
+} */
+
+/* input.required {
+    color: red;
+    border: 1px solid red;
+} */
